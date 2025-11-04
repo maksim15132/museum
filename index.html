@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta
+  name="description"
+  content="Веб-Приложение с использованием технологии LiDAR — сайт школьного музея." />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="shortcut icon" href="assets/icon.png" type="image/png" />
+<title>Музей 42 школы</title>
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="dark">
+
+<header>
+  <div class="brand">
+    <!-- Используем реальный логотип (favicon) вместо буквы R -->
+    <img class="logo-img" src="assets/icon.png" alt="логотип" />
+    <div class="title">
+      <h1>Сайт школьного музея</h1>
+      <p>Меню • AR-просмотр экспонатов</p>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:center;gap:10px;">
+    <button id="theme-toggle" class="btn btn-ghost theme-toggle" title="Переключить тему">☀️ Тема</button>
+
+    <!-- Карзина заменена на гамбургер -->
+    <button id="cart-btn" class="btn btn-ghost cart-btn" title="Меню">
+      ☰
+    </button>
+  </div>
+</header>
+
+<main class="container">
+  <section style="margin-bottom:14px;">
+    <h2 style="margin:0;">Наше меню</h2>
+    <p style="color:var(--muted);margin-top:6px;">Нажмите “Подробнее”, чтобы открыть мини-страницу экспоната с AR-просмотром и добавить в корзину.</p>
+  </section>
+
+  <section id="menu-grid" class="menu-grid"></section>
+
+  <aside id="cart-preview" style="margin-top:22px;display:none;justify-content:flex-end;">
+    <div style="background:var(--card);padding:12px;border-radius:12px;min-width:220px;box-shadow:0 8px 24px rgba(2,6,23,0.4);">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div style="font-weight:800;">Корзина</div>
+        <div id="cart-items-count" style="color:var(--muted);">0 шт</div>
+      </div>
+      <div id="cart-total" style="margin-top:8px;color:var(--muted);">Итого: <strong>€0.00</strong></div>
+      <div style="margin-top:10px;display:flex;gap:8px;">
+        <button id="order-btn" class="btn btn-primary">Оформить</button>
+        <button id="clear-cart-btn" class="btn btn-ghost">Очистить</button>
+      </div>
+    </div>
+  </aside>
+</main>
+
+<!-- Модальное окно -->
+<div id="modal" class="modal-backdrop" style="display:none;">
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <!-- По умолчанию: слева - превью (изображение), справа - текст/кнопки.
+         После загрузки 3D модели JS добавит класс .model-loaded и поменяет порядок -->
+    <div class="modal-preview" id="modal-preview">
+      <img id="modal-img" class="dish-img" src="" alt="" />
+      <!-- модель будет показана в том же слоте при загрузке -->
+      <model-viewer
+        id="model-viewer"
+        style="width: 100%; height: 320px; border-radius: 8px; background: #081226; display:none;"
+        alt=""
+        camera-controls
+        ar
+        ar-modes="webxr scene-viewer quick-look"
+        poster=""
+      ></model-viewer>
+    </div>
+
+    <div class="modal-info">
+      <h3 id="modal-title" class="dish-title"></h3>
+      <div id="modal-price" style="color:var(--muted);margin-top:6px;"></div>
+      <p id="modal-desc" class="dish-desc"></p>
+
+      <div class="modal-actions">
+        <a id="ar-link" class="btn btn-ghost" href="#" rel="ar" target="_blank">Открыть в AR (iPhone)</a>
+        <button id="add-to-cart-btn" class="btn btn-primary">Добавить в корзину</button>
+        <button id="close-modal-btn" class="btn btn-ghost">Закрыть</button>
+      </div>
+
+      <div id="model-status" class="note">Статус 3D: idle</div>
+      <div id="model-error" class="note" style="color:#ffb3b3; display:none; margin-top:10px;">Ошибка загрузки модели — проверьте URL и доступность файла (HTTPS).</div>
+      <div class="note">Совет: для iPhone используйте Safari и убедитесь, что сайт доступен по HTTPS; для Android — требуется поддержка WebXR / Scene Viewer.</div>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
