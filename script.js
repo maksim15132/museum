@@ -373,69 +373,50 @@
 
 function openModal(dish) {
   currentDish = dish;
-  modal.style.display = 'flex';
+  modal.style.display = "flex";
   document.body.classList.add("modal-open");
 
-  // текстовые поля
   modalTitle.textContent = dish.name;
-  modalPrice.textContent = Цена; {dish.price.toFixed(2)};
+  modalPrice.textContent = "Цена: €${dish.price.toFixed(2)}";
   modalDesc.textContent = dish.description;
 
-  // подготовка viewer / сброс ошибок и статус
-  modelViewer.alt = dish.name;
   modelError.style.display = "none";
   modelStatus.textContent = "Статус 3D: загрузка...";
+  modalImg.style.display = "none";
 
-  // убираем старые обработчики, чтобы не накапливались
-  try { modelViewer.removeEventListener("load", onModelLoaded); } catch (e) {}
-  try { modelViewer.removeEventListener("error", onModelError); } catch (e) {}
+  // очищаем старую модель
+  modelViewer.removeAttribute("src");
+  modelViewer.style.display = "block";
+  modelViewer.alt = dish.name;
 
-  // вешаем свежие обработчики (они определены в твоём скрипте)
-  modelViewer.addEventListener("load", onModelLoaded);
-  modelViewer.addEventListener("error", onModelError);
+  // снимаем старые события
+  modelViewer.onload = null;
+  modelViewer.onerror = null;
 
-  // если у предмета есть состояния (телефон) — показываем кнопку и грузим закрытую модель
+  modelViewer.onload = () => {
+    modelStatus.textContent = "Статус 3D: модель загружена ✅";
+  };
+
+  modelViewer.onerror = () => {
+    modelStatus.textContent = "Статус 3D: ошибка загрузки ❌";
+    modelError.style.display = "block";
+  };
+
   if (dish.hasStates) {
     toggleStateBtn.style.display = "inline-block";
     toggleStateBtn.textContent = "Открыть телефон";
     phoneState = "closed";
 
-    // UI подготовки
-    modalImg.style.display = "none";
-    modelViewer.style.display = "none";
-    showLoader(true);
-
-    // небольшая задержка — помогает избежать бага с "невидимой" моделью
-    setTimeout(() => {
-      modelViewer.poster = dish.image || "";
-      modelViewer.src = dish.modelClosedGlb;
-      arLink.href = dish.modelClosedUsdz || "#";
-      arLink.style.display = dish.modelClosedUsdz ? "inline-block" : "none";
-    }, 80);
+    modelViewer.src = dish.modelClosedGlb;
+    arLink.href = dish.modelClosedUsdz;
   } else {
-    // для обычных предметов — скрываем кнопку и грузим обычную модель (если есть)
     toggleStateBtn.style.display = "none";
 
-    if (dish.modelGlb) {
-      modalImg.style.display = "none";
-      modelViewer.style.display = "none";
-      showLoader(true);
-      setTimeout(() => {
-        modelViewer.poster = dish.image || "";
-        modelViewer.src = dish.modelGlb;
-        arLink.href = dish.modelUsdz || "#";
-        arLink.style.display = dish.modelUsdz ? "inline-block" : "none";
-      }, 80);
-    } else {
-      // если модели нет — показываем картинку и сообщение
-      modelViewer.style.display = "none";
-      modalImg.src = dish.image || "";
-      modalImg.style.display = "block";
-      arLink.style.display = "none";
-      modelStatus.textContent = "3D модель отсутствует";
-      showLoader(false);
-    }
+    modelViewer.src = dish.modelGlb;
+    arLink.href = dish.modelUsdz;
   }
+
+  arLink.style.display = arLink.href ? "inline-block" : "none";
 }
 
 
@@ -538,15 +519,17 @@ function openModal(dish) {
 toggleStateBtn.onclick = () => {
   if (!currentDish || !currentDish.hasStates) return;
 
+  modelStatus.textContent = "Статус 3D: загрузка...";
+
   if (phoneState === "closed") {
     phoneState = "open";
     toggleStateBtn.textContent = "Закрыть телефон";
-    startModelLoad(currentDish.modelOpenGlb);
+    modelViewer.src = currentDish.modelOpenGlb;
     arLink.href = currentDish.modelOpenUsdz;
   } else {
     phoneState = "closed";
     toggleStateBtn.textContent = "Открыть телефон";
-    startModelLoad(currentDish.modelClosedGlb);
+    modelViewer.src = currentDish.modelClosedGlb;
     arLink.href = currentDish.modelClosedUsdz;
   }
 };
