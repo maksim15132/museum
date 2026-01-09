@@ -374,14 +374,14 @@
 function openModal(dish) {
   currentDish = dish;
   modal.style.display = 'flex';
+  // (опционально) блокируем скролл страницы
+  document.body.classList.add("modal-open");
 
-  // теперь без modalImg
   modalTitle.textContent = dish.name;
-  modalPrice.textContent = `Цена: €${dish.price.toFixed(2)}`;
+  modalPrice.textContent = Цена: €${dish.price.toFixed(2)};
   modalDesc.textContent = dish.description;
 
-  modelViewer.src = dish.modelGlb;
-  modelViewer.poster = dish.image;
+  // не ставим modelViewer.src напрямую — используем startModelLoad()
   modelViewer.alt = dish.name;
 
   // Для iPhone AR quick look нужно ссылку на usdz
@@ -391,19 +391,32 @@ function openModal(dish) {
   modelError.style.display = "none";
   modelStatus.textContent = "Статус 3D: загрузка...";
 
-  modelViewer.addEventListener("load", onModelLoaded);
-  modelViewer.addEventListener("error", onModelError);
+  // НЕ добавляем слушатели здесь — startModelLoad сам их навесит корректно
+  // modelViewer.addEventListener("load", onModelLoaded);
+  // modelViewer.addEventListener("error", onModelError);
+
   // === КНОПКА ПЕРЕКЛЮЧЕНИЯ СОСТОЯНИЯ (ТОЛЬКО ДЛЯ ТЕЛЕФОНА) ===
   if (dish.hasStates) {
     toggleStateBtn.style.display = "inline-block";
     toggleStateBtn.textContent = "Открыть телефон";
-
     phoneState = "closed";
 
+    // запускаем загрузку закрытой модели
     startModelLoad(dish.modelClosedGlb);
     arLink.href = dish.modelClosedUsdz;
   } else {
     toggleStateBtn.style.display = "none";
+
+    // для обычных предметов — загружаем обычную модель
+    if (dish.modelGlb) {
+      startModelLoad(dish.modelGlb);
+      arLink.href = dish.modelUsdz || "#";
+    } else {
+      // если модели вообще нет — прячем model-viewer (опционально)
+      modelViewer.style.display = "none";
+      modalImg.style.display = "block";
+      modelStatus.textContent = "3D модель отсутствует";
+    }
   }
 }
 
