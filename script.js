@@ -373,52 +373,27 @@
 
 function openModal(dish) {
   currentDish = dish;
-  modal.style.display = "flex";
-  document.body.classList.add("modal-open");
+  modal.style.display = 'flex';
 
+  // теперь без modalImg
   modalTitle.textContent = dish.name;
-  modalPrice.textContent = "Цена: €${dish.price.toFixed(2)}";
+  modalPrice.textContent = `Цена: €${dish.price.toFixed(2)}`;
   modalDesc.textContent = dish.description;
+
+  modelViewer.src = dish.modelGlb;
+  modelViewer.poster = dish.image;
+  modelViewer.alt = dish.name;
+
+  // Для iPhone AR quick look нужно ссылку на usdz
+  arLink.href = dish.modelUsdz;
+  arLink.style.display = dish.modelUsdz ? "inline-block" : "none";
 
   modelError.style.display = "none";
   modelStatus.textContent = "Статус 3D: загрузка...";
-  modalImg.style.display = "none";
 
-  // очищаем старую модель
-  modelViewer.removeAttribute("src");
-  modelViewer.style.display = "block";
-  modelViewer.alt = dish.name;
-
-  // снимаем старые события
-  modelViewer.onload = null;
-  modelViewer.onerror = null;
-
-  modelViewer.onload = () => {
-    modelStatus.textContent = "Статус 3D: модель загружена ✅";
-  };
-
-  modelViewer.onerror = () => {
-    modelStatus.textContent = "Статус 3D: ошибка загрузки ❌";
-    modelError.style.display = "block";
-  };
-
-  if (dish.hasStates) {
-    toggleStateBtn.style.display = "inline-block";
-    toggleStateBtn.textContent = "Открыть телефон";
-    phoneState = "closed";
-
-    modelViewer.src = dish.modelClosedGlb;
-    arLink.href = dish.modelClosedUsdz;
-  } else {
-    toggleStateBtn.style.display = "none";
-
-    modelViewer.src = dish.modelGlb;
-    arLink.href = dish.modelUsdz;
-  }
-
-  arLink.style.display = arLink.href ? "inline-block" : "none";
+  modelViewer.addEventListener("load", onModelLoaded);
+  modelViewer.addEventListener("error", onModelError);
 }
-
 
 
   function closeModal() {
