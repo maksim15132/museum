@@ -374,48 +374,66 @@
 function openModal(dish) {
   currentDish = dish;
   modal.style.display = 'flex';
-  // (опционально) блокируем скролл страницы
   document.body.classList.add("modal-open");
 
+  // текстовые поля
   modalTitle.textContent = dish.name;
-  modalPrice.textContent = Цена: €${dish.price.toFixed(2)};
+  modalPrice.textContent = Цена; {dish.price.toFixed(2)};
   modalDesc.textContent = dish.description;
 
-  // не ставим modelViewer.src напрямую — используем startModelLoad()
+  // подготовка viewer / сброс ошибок и статус
   modelViewer.alt = dish.name;
-
-  // Для iPhone AR quick look нужно ссылку на usdz
-  arLink.href = dish.modelUsdz;
-  arLink.style.display = dish.modelUsdz ? "inline-block" : "none";
-
   modelError.style.display = "none";
   modelStatus.textContent = "Статус 3D: загрузка...";
 
-  // НЕ добавляем слушатели здесь — startModelLoad сам их навесит корректно
-  // modelViewer.addEventListener("load", onModelLoaded);
-  // modelViewer.addEventListener("error", onModelError);
+  // убираем старые обработчики, чтобы не накапливались
+  try { modelViewer.removeEventListener("load", onModelLoaded); } catch (e) {}
+  try { modelViewer.removeEventListener("error", onModelError); } catch (e) {}
 
-  // === КНОПКА ПЕРЕКЛЮЧЕНИЯ СОСТОЯНИЯ (ТОЛЬКО ДЛЯ ТЕЛЕФОНА) ===
+  // вешаем свежие обработчики (они определены в твоём скрипте)
+  modelViewer.addEventListener("load", onModelLoaded);
+  modelViewer.addEventListener("error", onModelError);
+
+  // если у предмета есть состояния (телефон) — показываем кнопку и грузим закрытую модель
   if (dish.hasStates) {
     toggleStateBtn.style.display = "inline-block";
     toggleStateBtn.textContent = "Открыть телефон";
     phoneState = "closed";
 
-    // запускаем загрузку закрытой модели
-    startModelLoad(dish.modelClosedGlb);
-    arLink.href = dish.modelClosedUsdz;
+    // UI подготовки
+    modalImg.style.display = "none";
+    modelViewer.style.display = "none";
+    showLoader(true);
+
+    // небольшая задержка — помогает избежать бага с "невидимой" моделью
+    setTimeout(() => {
+      modelViewer.poster = dish.image || "";
+      modelViewer.src = dish.modelClosedGlb;
+      arLink.href = dish.modelClosedUsdz || "#";
+      arLink.style.display = dish.modelClosedUsdz ? "inline-block" : "none";
+    }, 80);
   } else {
+    // для обычных предметов — скрываем кнопку и грузим обычную модель (если есть)
     toggleStateBtn.style.display = "none";
 
-    // для обычных предметов — загружаем обычную модель
     if (dish.modelGlb) {
-      startModelLoad(dish.modelGlb);
-      arLink.href = dish.modelUsdz || "#";
-    } else {
-      // если модели вообще нет — прячем model-viewer (опционально)
+      modalImg.style.display = "none";
       modelViewer.style.display = "none";
+      showLoader(true);
+      setTimeout(() => {
+        modelViewer.poster = dish.image || "";
+        modelViewer.src = dish.modelGlb;
+        arLink.href = dish.modelUsdz || "#";
+        arLink.style.display = dish.modelUsdz ? "inline-block" : "none";
+      }, 80);
+    } else {
+      // если модели нет — показываем картинку и сообщение
+      modelViewer.style.display = "none";
+      modalImg.src = dish.image || "";
       modalImg.style.display = "block";
+      arLink.style.display = "none";
       modelStatus.textContent = "3D модель отсутствует";
+      showLoader(false);
     }
   }
 }
