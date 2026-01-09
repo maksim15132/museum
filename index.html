@@ -5,71 +5,19 @@
 <meta name="description" content="Веб-Приложение с использованием технологии LiDAR — сайт школьного музея." />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="shortcut icon" href="assets/icon.png" type="image/png" />
-<link rel="apple-touch-icon" href="assets/ios_logo.jpg">
-<title>Музей 42 школы — обновлённая версия (3D в модалке как в старой версии)</title>
+<title>Электронный музей</title>
 <!-- model-viewer -->
 <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
-<style>
-/* --- Стили (взяты и объединены из ваших файлов, немного подправлены) --- */
-:root{--bg-dark:#071022;--card-dark:#0b1220;--text-dark:#e6eef8;--muted-dark:#9fb0c9;--accent-dark:#ff7a18;--bg-light:#f7fafc;--card-light:#ffffff;--text-light:#0b1220;--muted-light:#607089;--accent-light:#ff6b35}
-html,body{touch-action:manipulation;-ms-touch-action:manipulation}
-html{transition:background .2s linear,color .2s linear}
-body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;min-height:100vh;background:var(--bg);color:var(--text);transition:background .25s linear,color .25s linear}
-.light{--bg:var(--bg-light);--card:var(--card-light);--text:var(--text-light);--muted:var(--muted-light);--accent:var(--accent-light)}
-.dark{--bg:var(--bg-dark);--card:var(--card-dark);--text:var(--text-dark);--muted:var(--muted-dark);--accent:var(--accent-dark)}
-body.modal-open{overflow:hidden}
-header{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;background:linear-gradient(90deg,rgba(255,255,255,0.02),transparent);backdrop-filter:blur(6px)}
-.brand{display:flex;align-items:center;gap:14px}
-.logo-img{width:50px;height:50px;border-radius:12px;object-fit:cover;background:linear-gradient(180deg,var(--accent),#ffb28b);padding:6px}
-.title h1{margin:0;font-size:18px}
-.title p{margin:0;font-size:13px;color:var(--muted)}
-.theme-toggle{border:2px solid rgba(255,255,255,.12);padding:8px 12px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;min-width:110px;background:linear-gradient(90deg,rgba(255,255,255,.02),transparent)}
-.cart-btn{position:relative;font-weight:800}
-main.container{max-width:1100px;margin:28px auto;padding:0 18px}
-.menu-grid{display:grid;grid-template-columns:1fr;gap:24px;align-items:stretch}
-.hero-card{background:var(--card);border-radius:12px;padding:0;overflow:hidden;box-shadow:0 6px 26px rgba(2,6,23,.5);display:flex;gap:0;align-items:stretch;transition:transform .28s cubic-bezier(.2,.9,.3,1),box-shadow .28s,filter .28s;cursor:pointer}
-.hero-card:hover{transform:translateY(-10px) scale(1.01);box-shadow:0 30px 60px rgba(2,6,23,.55);filter:saturate(1.05)}
-.card-media,.card-content{width:50%;padding:18px;box-sizing:border-box}
-.card-media img{width:100%;height:100%;object-fit:cover;border-radius:8px}
-.card-content{display:flex;flex-direction:column;justify-content:space-between}
-.card-content .meta{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
-.card-content .price{font-weight:800;margin-left:8px}
-.card-content p{color:var(--muted);margin-top:8px}
-.card-actions{display:flex;gap:10px;margin-top:12px;align-items:center}
-.menu-grid .hero-card:nth-child(even){flex-direction:row-reverse}
-button.btn{padding:8px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:700;transition:transform .12s ease,box-shadow .12s}
-button.btn-primary{background:linear-gradient(90deg,var(--accent),#ffb28b);color:#071022}
-button.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,.06);color:var(--muted)}
-.modal-backdrop{position:fixed;inset:0;background:linear-gradient(180deg,rgba(1,2,6,.6),rgba(1,2,6,.85));display:flex;align-items:center;justify-content:center;z-index:60;animation:pop .18s ease;padding:16px}
-.modal-panel{width:min(980px,95%);aspect-ratio:1/1;max-height:70vh;background:var(--card);border-radius:14px;padding:18px;display:grid;grid-template-columns:360px 1fr;gap:16px;align-items:start;overflow:hidden}
-@media (min-width:1200px){.modal-panel{width:min(1100px,95%);max-height:80vh;grid-template-columns:420px 1fr}.modal-preview .dish-img, .modal-preview model-viewer{height:calc(100vw * 0.25);max-height:400px}}
-.modal-preview{display:flex;flex-direction:column;gap:10px;align-items:stretch;overflow:hidden}
-.modal-preview .dish-img{width:100%;height:320px;object-fit:cover;border-radius:10px}
-.modal-preview model-viewer{width:100%;height:320px;border-radius:10px}
-.modal-panel.model-loaded{grid-template-columns:1fr 360px}.modal-panel.model-loaded .dish-img{display:none}.modal-panel.model-loaded model-viewer{display:block}
-model-viewer{display:none}
-.dish-title{margin:0;font-size:20px}.dish-desc{color:var(--muted);margin-top:8px}.note{color:var(--muted);margin-top:10px}
-@media (max-width:820px){.menu-grid{gap:16px}.menu-grid .hero-card{flex-direction:column!important}.card-media,.card-content{width:100%;padding:14px}.modal-backdrop{align-items:start;justify-content:center;overflow:auto;padding:10px}.modal-panel{grid-template-columns:1fr;width:92%;height:90%;max-width:600px;max-height:88vh;margin:20px auto;border-radius:12px;padding:12px;overflow-y:auto;-webkit-overflow-scrolling:touch}.modal-panel.model-loaded{grid-template-columns:1fr}.modal-preview .dish-img,.modal-preview model-viewer{height:calc(100vw * 0.65)}}
-@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.99)}to{opacity:1;transform:none}}
-/* --- loader + controls styles --- */
-.mv-loader{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
-.mv-loader .spinner{width:56px;height:56px;border-radius:50%;border:6px solid rgba(255,255,255,.08);border-top-color:rgba(255,255,255,.95);animation:mv-spin 1s linear infinite;box-shadow:0 6px 18px rgba(2,6,23,.6)}
-@keyframes mv-spin{to{transform:rotate(360deg)}}
-.mv-overlay{position:relative}
-.mv-controls{margin-top:10px;display:flex;gap:8px;align-items:center}
-.mv-btn{padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,.06);background:transparent;cursor:pointer;font-weight:700}
-.mv-btn.active{background:linear-gradient(90deg,var(--accent),#ffb28b);color:#071022}
-.mv-retry{padding:6px 8px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);cursor:pointer}
-</style>
+<link rel="stylesheet" href="style.css" />
 </head>
 <body class="dark">
 <header>
   <div class="brand">
     <img class="logo-img" src="assets/icon.png" alt="логотип" />
     <div class="title">
-      <h1>Сайт школьного музея</h1>
-      <p>Меню • AR-просмотр экспонатов</p>
+      <h1>Сайт электронного музея</h1>
+      <p>Музей • AR-просмотр экспонатов</p>
     </div>
   </div>
   <div style="display:flex;align-items:center;gap:10px;">
@@ -105,8 +53,7 @@ model-viewer{display:none}
 <div id="modal" class="modal-backdrop" style="display:none;">
   <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <div class="modal-preview mv-overlay" id="modal-preview">
-      <!-- по умолчанию отображаем изображение; при открытии модалки его заменим на model-viewer
-           (имитируем поведение старой версии: сразу видим окно MODALVIVER вместо фото) -->
+      <!-- по умолчанию отображаем изображение; при открытии модалки его заменим на model-viewer -->
       <img id="modal-img" class="dish-img" src="" alt="" />
 
       <!-- model-viewer присутствует и будет показан немедленно при открытии карточки -->
@@ -129,6 +76,14 @@ model-viewer{display:none}
       <p id="modal-desc" class="dish-desc"></p>
 
       <div class="modal-actions">
+        <button
+          id="toggle-state-btn"
+          class="btn btn-ghost"
+          style="display:none;"
+        >
+          Переключить состояние
+        </button>
+
         <a id="ar-link" class="btn btn-ghost" href="#" rel="ar" target="_blank">Открыть в AR (iPhone)</a>
         <button id="add-to-cart-btn" class="btn btn-primary">Добавить в корзину</button>
         <button id="close-modal-btn" class="btn btn-ghost">Закрыть</button>
@@ -141,147 +96,6 @@ model-viewer{display:none}
   </div>
 </div>
 
-<script>
-(() => {
-  // ====== ДАННЫЕ МЕНЮ (как у вас) ======
-  const MENU = [
-    {id:"m1",name:"Маргарита",price:9.5,image:"https://maksim15132.github.io/ar-shop/assets/image/margarita.jpg",description:"Классическая пицца Маргарита — томатный соус, моцарелла, базилик.",modelGlb:"https://maksim15132.github.io/ar-shop/assets/modelGlb/margarita/pizza.glb",modelUsdz:"https://modelviewer.dev/shared-assets/models/Pizza.usdz"},
-    {id:"m2",name:"Пепперони",price:11.0,image:"https://maksim15132.github.io/ar-shop/assets/image/piperoni.jpg",description:"Острая пепперони с хрустящей корочкой и тянущимся сыром.",modelGlb:"https://maksim15132.github.io/ar-shop/assets/modelGlb/piperoni/pizza.glb",modelUsdz:"https://maksim15132.github.io/ar-shop/assets/modelUsdz/Pepperoni_and_Spinach_Pizza.usdz"},
-    {id:"s1",name:"Цезарь с курицей",price:8.0,image:"https://maksim15132.github.io/ar-shop/assets/image/chiken.png",description:"Свежий салат Цезарь с жареной курицей и пармезаном.",modelGlb:"https://modelviewer.dev/shared-assets/models/Pizza.glb",modelUsdz:"https://modelviewer.dev/shared-assets/models/Pizza.usdz"},
-    {id:"m3",name:"Курица",price:8.0,image:"https://maksim15132.github.io/ar-shop/assets/image/chiken_gril.jpg",description:"Запечёная курица.",modelGlb:"https://modelviewer.dev/shared-assets/models/Pizza.glb",modelUsdz:"https://maksim15132.github.io/ar-shop/assets/modelUsdz/Roast_chicken.usdz"},
-    {id:"f1",name:"Фотоаппарат Смена-8М",price:20.0,image:"https://maksim15132.github.io/ar-shop/assets/image/smena-8m.jpg",description:"Фотоаппарат «Смена-8М»...",modelGlb:"https://maksim15132.github.io/ar-shop/assets/modelGlb/smena_8m.glb",modelUsdz:"https://maksim15132.github.io/ar-shop/assets/modelUsdz/Smena_8M.usdz"},
-    {id:"f2",name:"Фотоаппарат Зенит",price:40.0,image:"https://maksim15132.github.io/ar-shop/assets/image/zenit.jpg",description:"Фотоаппарат «Зенит-Е",modelGlb:"https://maksim15132.github.io/ar-shop/assets/modelGlb/zenit-et__free.glb",modelUsdz:"https://maksim15132.github.io/ar-shop/assets/modelUsdz/Zenit-ET.usdz"}
-  ];
-
-  // ====== DOM ======
-  const menuGrid = document.getElementById('menu-grid');
-  const modal = document.getElementById('modal');
-  const modalImg = document.getElementById('modal-img');
-  const modalTitle = document.getElementById('modal-title');
-  const modalPrice = document.getElementById('modal-price');
-  const modalDesc = document.getElementById('modal-desc');
-  const modelViewer = document.getElementById('model-viewer');
-  const arLink = document.getElementById('ar-link');
-  const addToCartBtn = document.getElementById('add-to-cart-btn');
-  const closeModalBtn = document.getElementById('close-modal-btn');
-  const modelStatus = document.getElementById('model-status');
-  const modelError = document.getElementById('model-error');
-  const modalPanel = document.querySelector('.modal-panel');
-  const modalPreview = document.querySelector('.modal-preview');
-
-  // loader node injected
-  (function injectLoader(){
-    const loader = document.createElement('div'); loader.className='mv-loader'; loader.style.display='none'; loader.innerHTML='<div class="spinner" aria-hidden="true"></div>';
-    if(modalPreview) modalPreview.appendChild(loader);
-    window.__mv_loader_node = loader;
-  })();
-  const loaderNode = window.__mv_loader_node;
-
-  // ====== Theme + cart (unchanged behavior) ======
-  const themeToggle = document.getElementById('theme-toggle');
-  const body = document.body;
-  function setTheme(theme){ if(theme==='light'){body.classList.remove('dark');body.classList.add('light');themeToggle.textContent='🌙 Тёмная'}else{body.classList.remove('light');body.classList.add('dark');themeToggle.textContent='☀️ Тема'} localStorage.setItem('ar_theme',theme)}
-  setTheme(localStorage.getItem('ar_theme')||'dark');
-  themeToggle.onclick = ()=> setTheme(body.classList.contains('light')? 'dark' : 'light');
-
-  let cart = JSON.parse(localStorage.getItem('ar_cart')||'[]');
-  function saveCart(){ localStorage.setItem('ar_cart',JSON.stringify(cart)) }
-  function updateCartUI(){ const count = cart.reduce((acc,i)=>acc+i.qty,0); const cartCount = document.getElementById('cart-count'); if(cartCount){cartCount.style.display = count>0 ? 'inline-block' : 'none'; cartCount.textContent = count;} const cartItemsCount = document.getElementById('cart-items-count'); if(cartItemsCount) cartItemsCount.textContent = count + ' шт'; const total = cart.reduce((acc,i)=>acc + i.qty*i.price,0); const cartTotal = document.getElementById('cart-total'); if(cartTotal) cartTotal.innerHTML = 'Итого: <strong>€'+ total.toFixed(2) +'</strong>'; const cartPreview = document.getElementById('cart-preview'); if(cartPreview) cartPreview.style.display = count>0 ? 'flex' : 'none'; }
-  function addToCart(dish, qty=1){ const f = cart.find(i=>i.id===dish.id); if(f) f.qty += qty; else cart.push({...dish, qty}); saveCart(); updateCartUI(); }
-  function clearCart(){ cart = []; saveCart(); updateCartUI(); }
-  document.getElementById('order-btn').onclick = ()=> alert('Оформление заказа пока не реализовано (демо).');
-  document.getElementById('clear-cart-btn').onclick = clearCart;
-  document.getElementById('cart-btn').onclick = ()=> alert('СКОРО этот раздел сайта в разработке');
-  updateCartUI();
-
-  // ====== Render cards ======
-  function createHeroCard(dish){
-    const article = document.createElement('article'); article.className='hero-card';
-    const media = document.createElement('div'); media.className='card-media';
-    const img = document.createElement('img'); img.src = dish.image; img.alt = dish.name; media.appendChild(img);
-    const content = document.createElement('div'); content.className='card-content';
-    const meta = document.createElement('div'); meta.className='meta';
-    const nameDiv = document.createElement('div'); nameDiv.style.fontWeight='800'; nameDiv.textContent = dish.name;
-    const priceDiv = document.createElement('div'); priceDiv.className='price'; priceDiv.textContent = '€'+dish.price.toFixed(2);
-    meta.appendChild(nameDiv); meta.appendChild(priceDiv);
-    const desc = document.createElement('p'); desc.style.color='var(--muted)'; desc.style.marginTop='8px'; desc.style.fontSize='14px'; desc.textContent = dish.description;
-    const buttonsDiv = document.createElement('div'); buttonsDiv.className='card-actions';
-    const detailsBtn = document.createElement('button'); detailsBtn.className='btn btn-primary'; detailsBtn.textContent='Подробнее';
-    const addBtn = document.createElement('button'); addBtn.className='btn btn-ghost'; addBtn.textContent='В корзину';
-    detailsBtn.onclick = ()=> openModal(dish);
-    addBtn.onclick = ()=> { addToCart(dish,1); alert('Добавлено в корзину'); };
-    buttonsDiv.appendChild(detailsBtn); buttonsDiv.appendChild(addBtn);
-    content.appendChild(meta); content.appendChild(desc); content.appendChild(buttonsDiv);
-    article.appendChild(media); article.appendChild(content);
-    return article;
-  }
-  function renderMenu(){ menuGrid.innerHTML=''; MENU.forEach(d=> menuGrid.appendChild(createHeroCard(d))); }
-  renderMenu();
-
-  // ====== model-viewer helpers (поведение как в старой версии) ======
-  let currentDish = null;
-  let lastModelFailed = false;
-  let autoRotate = false;
-
-  // controls: rotate + retry
-  (function ensureMvControls(){ const modalActions = document.querySelector('.modal-actions'); if(!modalActions) return; if(!document.getElementById('mv-rotate-btn')){ const rotateBtn = document.createElement('button'); rotateBtn.id='mv-rotate-btn'; rotateBtn.className='mv-btn'; rotateBtn.textContent='Авто-вращение'; rotateBtn.onclick = ()=>{ autoRotate = !autoRotate; rotateBtn.classList.toggle('active',autoRotate); toggleAutoRotate(autoRotate); }; modalActions.insertBefore(rotateBtn, modalActions.firstChild);} if(!document.getElementById('mv-retry-btn')){ const retryWrap = document.createElement('div'); retryWrap.id='mv-retry-wrap'; retryWrap.style.display='none'; retryWrap.style.marginLeft='8px'; const retryBtn = document.createElement('button'); retryBtn.id='mv-retry-btn'; retryBtn.className='mv-retry'; retryBtn.textContent='Попробовать загрузить снова'; retryBtn.onclick = ()=>{ if(currentDish && currentDish.modelGlb){ lastModelFailed=false; startModelLoad(currentDish.modelGlb);} }; const downloadLink = document.createElement('a'); downloadLink.id='mv-download-link'; downloadLink.className='mv-retry'; downloadLink.style.marginLeft='8px'; downloadLink.textContent='Скачать .glb'; downloadLink.target='_blank'; downloadLink.rel='noopener noreferrer'; retryWrap.appendChild(retryBtn); retryWrap.appendChild(downloadLink); modalActions.appendChild(retryWrap);} })();
-
-  function showLoader(show){ if(!loaderNode) return; loaderNode.style.display = show ? 'flex' : 'none'; }
-  function toggleAutoRotate(enable){ if(!modelViewer) return; if(enable){ modelViewer.setAttribute('auto-rotate',''); modelViewer.setAttribute('rotation-per-second','30deg'); } else { modelViewer.removeAttribute('auto-rotate'); modelViewer.removeAttribute('rotation-per-second'); } }
-
-  function startModelLoad(glbUrl){ if(!modelViewer) return; lastModelFailed=false; const retryWrap = document.getElementById('mv-retry-wrap'); if(retryWrap) retryWrap.style.display='none'; showLoader(true); modelStatus.textContent = 'Статус 3D: загрузка...'; modelViewer.removeEventListener('load', onModelLoaded); modelViewer.removeEventListener('error', onModelError); modelViewer.addEventListener('load', onModelLoaded, {once:true}); modelViewer.addEventListener('error', onModelError, {once:true}); try{ modelViewer.src = glbUrl || ''; }catch(err){ console.error('Error setting model src:', err); onModelError(err); } }
-
-  function openModal(dish){
-    currentDish = dish;
-    modal.style.display = 'flex';
-    body.classList.add('modal-open');
-
-    // Устанавливаем текстовую информацию
-    modalTitle.textContent = dish.name;
-    modalPrice.textContent = `Цена: €${dish.price.toFixed(2)}`;
-    modalDesc.textContent = dish.description;
-
-    // AR ссылка
-    arLink.href = dish.modelUsdz || '#';
-    arLink.style.display = dish.modelUsdz ? 'inline-block' : 'none';
-
-    // Обновляем ссылку скачивания
-    const downloadLink = document.getElementById('mv-download-link'); if(downloadLink){ downloadLink.href = dish.modelGlb || '#'; downloadLink.style.display = dish.modelGlb ? 'inline-block' : 'none'; }
-
-    // --- Ключевая часть: показываем "старое" окно model-viewer вместо фото ---
-    // 1) прячем изображение
-    modalImg.style.display = 'none';
-    // 2) показываем model-viewer немедленно — как в старой версии
-    modelViewer.style.display = 'block';
-    modelViewer.poster = dish.image;
-    modelViewer.alt = dish.name;
-    modelError.style.display = 'none';
-    modelStatus.textContent = 'Статус 3D: загрузка...';
-    modalPanel.classList.remove('model-loaded'); // убедимся, что класс снят — порядок колонок будет как в новой версии
-
-    // 3) старт загрузки модели (как в старой версии — просто установим src и подпишемся на события)
-    setTimeout(()=>{ if(dish.modelGlb){ startModelLoad(dish.modelGlb); } else { modelStatus.textContent = 'Статус 3D: модель отсутствует'; showLoader(false); } }, 10);
-  }
-
-  function closeModal(){ modal.style.display = 'none'; body.classList.remove('modal-open'); try{ modelViewer.removeEventListener('load', onModelLoaded); }catch(e){} try{ modelViewer.removeEventListener('error', onModelError); }catch(e){} try{ modelViewer.removeAttribute('src'); }catch(e){} modelViewer.style.display = 'none'; modalImg.style.display = 'block'; modelStatus.textContent = 'Статус 3D: idle'; modelError.style.display = 'none'; showLoader(false); const retryWrap = document.getElementById('mv-retry-wrap'); if(retryWrap) retryWrap.style.display='none'; const rotateBtn = document.getElementById('mv-rotate-btn'); if(rotateBtn) rotateBtn.classList.toggle('active', autoRotate); }
-
-  closeModalBtn.onclick = closeModal;
-  modal.onclick = (e)=>{ if(e.target === modal) closeModal(); };
-  addToCartBtn.onclick = ()=>{ if(currentDish){ addToCart(currentDish,1); alert('Добавлено в корзину'); } };
-
-  function onModelLoaded(){ console.log('model loaded'); showLoader(false); modelStatus.textContent = 'Статус 3D: модель загружена ✅'; modelError.style.display = 'none'; // при успешной загрузке можно изменить порядок колонок (если нужно)
-    modalPanel.classList.add('model-loaded'); toggleAutoRotate(autoRotate); }
-
-  function onModelError(err){ console.warn('model error', err); showLoader(false); lastModelFailed = true; modelStatus.textContent = 'Статус 3D: ошибка загрузки ❌'; modelError.style.display = 'block'; modelViewer.style.display = 'none'; // показать retry
-    const retryWrap = document.getElementById('mv-retry-wrap'); if(retryWrap) retryWrap.style.display = 'flex'; }
-
-  // Esc to close
-  window.addEventListener('keydown',(e)=>{ if(e.key === 'Escape' && modal.style.display === 'flex') closeModal(); });
-
-  // expose for debugging
-  window.__ar_shop = { openModal: (id)=>{ const dish = MENU.find(d=>d.id===id); if(dish) openModal(dish); }, reLoadModel: ()=>{ if(currentDish && currentDish.modelGlb) startModelLoad(currentDish.modelGlb); }, toggleAutoRotate: (v)=>{ autoRotate = !!v; toggleAutoRotate(autoRotate); const btn = document.getElementById('mv-rotate-btn'); if(btn) btn.classList.toggle('active', autoRotate); } };
-
-})();
-</script>
+<script src="script.js"></script>
 </body>
 </html>
