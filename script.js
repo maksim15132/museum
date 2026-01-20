@@ -67,7 +67,7 @@
       price: 15.0,
       image: "https://maksim15132.github.io/museum/assets/image/telephone1.jpg",
       description: "ТАИ-43 — военно-полевой телефонный аппарат системы МБ с индукторным вызовом производства СССР. Аббревиатура расшифровывается как «телефонный аппарат с индукторным вызовом образца 1943 года»",
-      modelClosedGlb: "https://maksim15132.github.io/museum/modelGlb/telephone1close/telephoneclose.glb",
+      modelClosedGlb: "https://maksim15132.github.io/museum/assets/modelGlb/telephone1close/telephoneclose.glb",
       modelClosedUsdz: "https://maksim15132.github.io/museum/assets/modelUsdz/telephoneclose.usdz",
       modelOpenGlb: "https://maksim15132.github.io/museum/assets/modelGlb/telephone1open/telephoneopen.glb",
       modelOpenUsdz: "https://maksim15132.github.io/museum/assets/modelUsdz/telephoneopen.usdz",
