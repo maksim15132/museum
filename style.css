@@ -176,11 +176,11 @@ main.container {
 }
 
 /* поддерживаем те же ширины — row-reverse решает порядок */
-.menu-grid .hero-card:nth-child(even) .card-media,
+/*.menu-grid .hero-card:nth-child(even) .card-media,
 .menu-grid .hero-card:nth-child(even) .card-content {
   /* intentionally left non-empty on purpose (keeps symmetry) */
   /* widths are handled above; no extra rules needed here */
-}
+/*}
 
 /* стили кнопок */
 button.btn {
@@ -240,11 +240,7 @@ button.btn-ghost {
     grid-template-columns: 420px 1fr;
   }
 
-  .modal-preview .dish-img,
-  .modal-preview model-viewer {
-    height: calc(100vw * 0.25); /* адаптивная высота — примерно четверть ширины окна */
-    max-height: 400px;
-  }
+  
 }
 
 /* preview и info внутри модалки */
@@ -256,12 +252,7 @@ button.btn-ghost {
   overflow: hidden;
 }
 
-.modal-preview .dish-img {
-  width: 100%;
-  height: 320px;
-  object-fit: cover;
-  border-radius: 10px;
-}
+
 
 .modal-preview model-viewer {
   width: 100%;
@@ -278,10 +269,7 @@ button.btn-ghost {
 .modal-panel.model-loaded model-viewer { display: block; }
 
 /* изначально model-viewer скрыт (будет показан JS при загрузке) */
-model-viewer {
-  visibility: hidden;
-}
-
+model-viewer { visibility: hidden; }
 
 /* заголовок, описание */
 .dish-title { margin: 0; font-size: 20px; }
@@ -329,10 +317,7 @@ model-viewer {
   }
 
   /* немного уменьшаем высоту превью */
-  .modal-preview .dish-img,
-  .modal-preview model-viewer {
-    height: calc(100vw * 0.65); /* 65% ширины экрана */
-  }
+  
 }
 
 /* запрет зума двойным тапом */
@@ -372,3 +357,11 @@ model-viewer {
 .mv-btn { padding:8px 10px; border-radius:8px; border:1px solid rgba(255,255,255,0.06); background:transparent; cursor:pointer; font-weight:700; }
 .mv-btn.active { background: linear-gradient(90deg,var(--accent),#ffb28b); color:#071022; }
 .mv-retry { padding:6px 8px; border-radius:8px; background: rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.06); cursor:pointer; }
+
+#modalImg {
+  display: block;
+}
+
+.modal-panel.model-loaded #modalImg {
+  display: none;
+}

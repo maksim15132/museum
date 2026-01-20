@@ -11,25 +11,25 @@
       id: "m1",
       name: "Маргарита",
       price: 9.5,
-      image: "https://maksim15132.github.io/ar-shop/assets/image/margarita.jpg",
+      image: "https://maksim15132.github.io/museum/assets/image/margarita.jpg",
       description: "Классическая пицца Маргарита — томатный соус, моцарелла, базилик.",
-      modelGlb: "https://maksim15132.github.io/ar-shop/assets/modelGlb/margarita/pizza.glb",
+      modelGlb: "https://maksim15132.github.io/museum/assets/modelGlb/margarita/pizza.glb",
       modelUsdz: "https://modelviewer.dev/shared-assets/models/Pizza.usdz",
     },
     {
       id: "m2",
       name: "Пепперони",
       price: 11.0,
-      image: "https://maksim15132.github.io/ar-shop/assets/image/piperoni.jpg",
+      image: "https://maksim15132.github.io/museum/assets/image/piperoni.jpg",
       description: "Острая пепперони с хрустящей корочкой и тянущимся сыром.",
-      modelGlb: "https://maksim15132.github.io/ar-shop/assets/modelGlb/piperoni/pizza.glb",
-      modelUsdz: "https://maksim15132.github.io/ar-shop/assets/modelUsdz/Pepperoni_and_Spinach_Pizza.usdz",
+      modelGlb: "https://maksim15132.github.io/museum/assets/modelGlb/piperoni/pizza.glb",
+      modelUsdz: "https://maksim15132.github.io/museum/assets/modelUsdz/Pepperoni_and_Spinach_Pizza.usdz",
     },
     {
       id: "s1",
       name: "Цезарь с курицей",
       price: 8.0,
-      image: "https://maksim15132.github.io/ar-shop/assets/image/chiken.png",
+      image: "https://maksim15132.github.io/museum/assets/image/chiken.png",
       description: "Свежий салат Цезарь с жареной курицей и пармезаном.",
       modelGlb: "https://modelviewer.dev/shared-assets/models/Pizza.glb",
       modelUsdz: "https://modelviewer.dev/shared-assets/models/Pizza.usdz",
@@ -38,28 +38,28 @@
       id: "m3",
       name: "Курица",
       price: 8.0,
-      image: "https://maksim15132.github.io/ar-shop/assets/image/chiken_gril.jpg",
+      image: "https://maksim15132.github.io/museum/assets/image/chiken_gril.jpg",
       description: "Запечёная курица.",
       modelGlb: "https://modelviewer.dev/shared-assets/models/Pizza.glb",
-      modelUsdz: "https://maksim15132.github.io/ar-shop/assets/modelUsdz/Roast_chicken.usdz",
+      modelUsdz: "https://maksim15132.github.io/museum/modelUsdz/Roast_chicken.usdz",
     },
     {
       id: "f1",
       name: "Фотоаппарат Смена-8М",
       price: 20.0,
-      image: "https://maksim15132.github.io/ar-shop/assets/image/smena-8m.jpg",
+      image: "https://maksim15132.github.io/museum/assets/image/smena-8m.jpg",
       description: "Фотоаппарат «Смена-8М» был одним из самых популярных в Советском Союзе. Его выпускали с 1970-х по 1990-е годы на Ленинградском оптико-механическом объединении. Простая конструкция и прочный корпус делали камеру удобной даже для начинающих фотографов. С помощью «Смены» люди снимали семейные праздники, школьные мероприятия, поездки и повседневную жизнь.",
-      modelGlb: "https://maksim15132.github.io/ar-shop/assets/modelGlb/smena_8m.glb",
-      modelUsdz: "https://maksim15132.github.io/ar-shop/assets/modelUsdz/Smena_8M.usdz",
+      modelGlb: "https://maksim15132.github.io/museum/assets/modelGlb/smena-8m/smena_8m.glb",
+      modelUsdz: "https://maksim15132.github.io/museum/assets/modelUsdz/Smena_8M.usdz",
     },
     {
       id: "f2",
       name: "Фотоаппарат Зенит",
       price: 40.0,
-      image: "https://maksim15132.github.io/ar-shop/assets/image/zenit.jpg",
+      image: "https://maksim15132.github.io/museum/assets/image/zenit.jpg",
       description: "Фотоаппарат «Зенит-Е» стал одной из самых узнаваемых моделей советской фототехники. Его выпускали с середины 1960-х до 1980-х годов на Красногорском механическом заводе. Надёжный металлический корпус и зеркальная система делали камеру удобной как для любителей, так и для начинающих фотографов. На «Зенит-Е» снимали портреты, пейзажи и важные жизненные моменты, а сам аппарат стал символом эпохи плёночной фотографии.",
-      modelGlb: "https://maksim15132.github.io/ar-shop/assets/modelGlb/zenit-et__free.glb",
-      modelUsdz: "https://maksim15132.github.io/ar-shop/assets/modelUsdz/Zenit-ET.usdz",
+      modelGlb: "https://maksim15132.github.io/museum/assets/modelGlb/zenit/zenit-et__free.glb",
+      modelUsdz: "https://maksim15132.github.io/museum/assets/modelUsdz/Zenit-ET.usdz",
     },
     {
       id: "phone1",
@@ -67,17 +67,12 @@
       price: 15.0,
       image: "https://maksim15132.github.io/museum/assets/image/telephone1.jpg",
       description: "ТАИ-43 — военно-полевой телефонный аппарат системы МБ с индукторным вызовом производства СССР. Аббревиатура расшифровывается как «телефонный аппарат с индукторным вызовом образца 1943 года»",
-
-      modelClosedGlb: "https://maksim15132.github.io/museum/assets/modelGlb/telephone1close/telephoneclose.glb",
+      modelClosedGlb: "https://maksim15132.github.io/museum/modelGlb/telephone1close/telephoneclose.glb",
       modelClosedUsdz: "https://maksim15132.github.io/museum/assets/modelUsdz/telephoneclose.usdz",
-
       modelOpenGlb: "https://maksim15132.github.io/museum/assets/modelGlb/telephone1open/telephoneopen.glb",
       modelOpenUsdz: "https://maksim15132.github.io/museum/assets/modelUsdz/telephoneopen.usdz",
-
       hasStates: true
-}
-
-
+    }
   ];
 
   // ===== DOM =====
@@ -259,7 +254,7 @@
   let currentDish = null;
   let lastModelFailed = false;
   let autoRotate = false; // state for auto-rotation
-  let phoneState = "closed"
+  let phoneState = "closed";
 
   // helper to access injected loader node
   const loaderNode = window.__mv_loader_node || null;
@@ -333,66 +328,64 @@
   }
 
   // centralised start loader -> attaches listeners and sets src
-  function startModelLoad(glbUrl) {
-  if (!modelViewer) return;
+function startModelLoad(glbUrl) {
+  if (!glbUrl) return;
 
-  lastModelFailed = false;
   showLoader(true);
-  modelStatus.textContent = "Статус 3D: загрузка...";
   modelError.style.display = "none";
+  modelStatus.textContent = "Статус 3D: загрузка...";
 
-  // Сбрасываем старое состояние
+  modelViewer.style.display = "block";
+  modelViewer.style.visibility = "visible";
+  modelViewer.style.opacity = "1";
+
   modelViewer.removeAttribute("src");
-  modelViewer.style.display = "none";
 
-  // Добавляем слушатели
-  modelViewer.onload = null;
-  modelViewer.onerror = null;
-
-  modelViewer.addEventListener("load", () => {
-    console.log("✅ Модель загружена:", glbUrl);
+  const onLoad = () => {
     showLoader(false);
     modelStatus.textContent = "Статус 3D: модель загружена ✅";
-    modelViewer.style.display = "block";
     modalImg.style.display = "none";
-  });
+    modalPanel.classList.add("model-loaded");
+    modelViewer.removeEventListener("load", onLoad);
+    modelViewer.removeEventListener("error", onError);
+  };
 
-  modelViewer.addEventListener("error", (err) => {
-    console.error("❌ Ошибка при загрузке модели:", err);
+  const onError = () => {
     showLoader(false);
-    modelStatus.textContent = "Ошибка загрузки 3D модели ❌";
+    modelStatus.textContent = "Статус 3D: ошибка загрузки ❌";
     modelError.style.display = "block";
-  });
+    modelViewer.removeEventListener("load", onLoad);
+    modelViewer.removeEventListener("error", onError);
+  };
 
-  // Важно: setTimeout помогает избежать бага с невидимой моделью
-  setTimeout(() => {
+  modelViewer.addEventListener("load", onLoad, { once: true });
+  modelViewer.addEventListener("error", onError, { once: true });
+
+  requestAnimationFrame(() => {
     modelViewer.src = glbUrl;
-  }, 100);
+  });
 }
 
 
-function openModal(dish) {
-  currentDish = dish;
-  modal.style.display = 'flex';
+  function openModal(dish) {
+    currentDish = dish;
+    modal.style.display = "flex";
+    body.classList.add("modal-open");
 
-  // теперь без modalImg
-  modalTitle.textContent = dish.name;
-  modalPrice.textContent = `Цена: €${dish.price.toFixed(2)}`;
-  modalDesc.textContent = dish.description;
+    modalTitle.textContent = dish.name;
+    modalPrice.textContent = `Цена: €${dish.price.toFixed(2)}`;
+    modalDesc.textContent = dish.description;
 
-  modelViewer.src = dish.modelGlb;
-  modelViewer.poster = dish.image;
-  modelViewer.alt = dish.name;
+    modelViewer.poster = dish.image;
+    modelViewer.alt = dish.name;
 
-  // Для iPhone AR quick look нужно ссылку на usdz
-  arLink.href = dish.modelUsdz;
-  arLink.style.display = dish.modelUsdz ? "inline-block" : "none";
+    arLink.href = dish.modelUsdz || "#";
+    arLink.style.display = dish.modelUsdz ? "inline-block" : "none";
 
-  modelError.style.display = "none";
-  modelStatus.textContent = "Статус 3D: загрузка...";
+    toggleStateBtn.style.display = dish.hasStates ? "inline-block" : "none";
+    if (dish.hasStates) toggleStateBtn.textContent = "Открыть телефон";
 
-  modelViewer.addEventListener("load", onModelLoaded);
-  modelViewer.addEventListener("error", onModelError);
+    startModelLoad(dish.modelGlb); // 🔥 ЕДИНСТВЕННАЯ загрузка
 }
 
 
@@ -405,10 +398,13 @@ function openModal(dish) {
     try { modelViewer.removeEventListener("error", onModelError); } catch(e) {}
     try { modelViewer.removeAttribute("src"); } catch(e) {}
     modelViewer.style.display = "none";
+    modelViewer.style.visibility = "hidden";
+    toggleStateBtn.style.display = "none";
     modalImg.style.display = "block";
     modelStatus.textContent = "Статус 3D: idle";
     modelError.style.display = "none";
     showLoader(false);
+    modalPanel.classList.remove("model-loaded");
 
     // hide retry UI
     const retryWrap = document.getElementById("mv-retry-wrap");
@@ -426,34 +422,12 @@ function openModal(dish) {
     if (currentDish) { addToCart(currentDish, 1); alert("Добавлено в корзину"); }
   };
 
-  // onModelLoaded/onModelError enhanced to drive loader + retry UI
-  function onModelLoaded() {
-    console.log("model loaded event");
-    showLoader(false);
-    modelStatus.textContent = "Статус 3D: модель загружена ✅";
-    modelError.style.display = "none";
-    modalImg.style.display = "none";
-    modelViewer.style.display = "block";
-    // add class to flip layout
-    modalPanel.classList.add("model-loaded");
 
-    // apply auto-rotate state if user enabled it
-    toggleAutoRotate(autoRotate);
-  }
 
-  function onModelError(err) {
-    console.warn("model error event", err);
-    showLoader(false);
-    lastModelFailed = true;
-    modelStatus.textContent = "Статус 3D: ошибка загрузки ❌";
-    modalImg.style.display = "none";
-    modelViewer.style.display = "none";
-    modelError.style.display = "block";
 
-    // show retry controls
-    const retryWrap = document.getElementById("mv-retry-wrap");
-    if (retryWrap) retryWrap.style.display = "flex";
-  }
+
+
+ 
 
   // ===== attach modal events to cards =====
   function createHeroCardWithEvents(dish) {
@@ -490,21 +464,19 @@ function openModal(dish) {
     }
   };
 
-// === ПЕРЕКЛЮЧЕНИЕ ОТКРЫТО / ЗАКРЫТО ===
-toggleStateBtn.onclick = () => {
+  // === ПЕРЕКЛЮЧЕНИЕ ОТКРЫТО / ЗАКРЫТО ===
+  toggleStateBtn.onclick = () => {
   if (!currentDish || !currentDish.hasStates) return;
-
-  modelStatus.textContent = "Статус 3D: загрузка...";
 
   if (phoneState === "closed") {
     phoneState = "open";
     toggleStateBtn.textContent = "Закрыть телефон";
-    modelViewer.src = currentDish.modelOpenGlb;
+    startModelLoad(currentDish.modelOpenGlb);
     arLink.href = currentDish.modelOpenUsdz;
   } else {
     phoneState = "closed";
     toggleStateBtn.textContent = "Открыть телефон";
-    modelViewer.src = currentDish.modelClosedGlb;
+    startModelLoad(currentDish.modelClosedGlb);
     arLink.href = currentDish.modelClosedUsdz;
   }
 };
