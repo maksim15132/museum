@@ -56,9 +56,9 @@
       id: "f2",
       name: "Фотоаппарат Зенит",
       price: 40.0,
-      image: "https://maksim15132.github.io/museum/blob/main/assets/image/zenit.jpg",
+      image: "https://maksim15132.github.io/museum/assets/image/zenit.jpg",
       description: "Фотоаппарат «Зенит-Е» стал одной из самых узнаваемых моделей советской фототехники. Его выпускали с середины 1960-х до 1980-х годов на Красногорском механическом заводе. Надёжный металлический корпус и зеркальная система делали камеру удобной как для любителей, так и для начинающих фотографов. На «Зенит-Е» снимали портреты, пейзажи и важные жизненные моменты, а сам аппарат стал символом эпохи плёночной фотографии.",
-      modelGlb: "https://maksim15132.github.io/museum/modelGlb/zenit/zenit-et__free.glb",
+      modelGlb: "https://maksim15132.github.io/museum/assets/modelGlb/zenit/zenit-et__free.glb",
       modelUsdz: "https://maksim15132.github.io/museum/assets/modelUsdz/Zenit-ET.usdz",
     },
     {
