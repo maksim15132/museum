@@ -176,11 +176,11 @@ main.container {
 }
 
 /* поддерживаем те же ширины — row-reverse решает порядок */
-.menu-grid .hero-card:nth-child(even) .card-media,
+/*.menu-grid .hero-card:nth-child(even) .card-media,
 .menu-grid .hero-card:nth-child(even) .card-content {
   /* intentionally left non-empty on purpose (keeps symmetry) */
   /* widths are handled above; no extra rules needed here */
-}
+/*}
 
 /* стили кнопок */
 button.btn {
@@ -278,7 +278,7 @@ button.btn-ghost {
 .modal-panel.model-loaded model-viewer { display: block; }
 
 /* изначально model-viewer скрыт (будет показан JS при загрузке) */
-model-viewer { display: none; }
+model-viewer { visibility: hidden; }
 
 /* заголовок, описание */
 .dish-title { margin: 0; font-size: 20px; }
