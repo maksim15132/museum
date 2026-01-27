@@ -8,32 +8,71 @@
 
   const MENU = [
     {
-      id: "page1",
-      name: "3D модели",
+      id: "m1",
+      name: "Маргарита",
       price: 9.5,
-      image: "https://static9.tgstat.ru/channels/_0/15/1511c3d7c60f71479ee2eb53e9e3f417.jpg",
-      description: "ТЕСТ.",
+      image: "https://maksim15132.github.io/museum/assets/image/margarita.jpg",
+      description: "Классическая пицца Маргарита — томатный соус, моцарелла, базилик.",
       modelGlb: "https://maksim15132.github.io/museum/assets/modelGlb/margarita/pizza.glb",
       modelUsdz: "https://modelviewer.dev/shared-assets/models/Pizza.usdz",
     },
     {
-      id: "page2",
-      name: "Литература",
+      id: "m2",
+      name: "Пепперони",
       price: 11.0,
-      image: "https://cdn1.ozone.ru/s3/multimedia-9/6007660341.jpg",
-      description: "ТЕСТ.",
+      image: "https://maksim15132.github.io/museum/assets/image/piperoni.jpg",
+      description: "Острая пепперони с хрустящей корочкой и тянущимся сыром.",
       modelGlb: "https://maksim15132.github.io/museum/assets/modelGlb/piperoni/pizza.glb",
       modelUsdz: "https://maksim15132.github.io/museum/assets/modelUsdz/Pepperoni_and_Spinach_Pizza.usdz",
     },
     {
-      id: "page3",
-      name: "ТЕСТ",
-      price: 8.0, 
-      image: "https://img.freepik.com/premium-vector/question-mark-3d-vector-illustration_1076263-937.jpg?semt=ais_hybrid&w=740&q=80",
-      description: "ТЕСТ.",
+      id: "s1",
+      name: "Цезарь с курицей",
+      price: 8.0,
+      image: "https://maksim15132.github.io/museum/assets/image/chiken.png",
+      description: "Свежий салат Цезарь с жареной курицей и пармезаном.",
       modelGlb: "https://modelviewer.dev/shared-assets/models/Pizza.glb",
       modelUsdz: "https://modelviewer.dev/shared-assets/models/Pizza.usdz",
     },
+    {
+      id: "m3",
+      name: "Курица",
+      price: 8.0,
+      image: "https://maksim15132.github.io/museum/assets/image/chiken_gril.jpg",
+      description: "Запечёная курица.",
+      modelGlb: "https://modelviewer.dev/shared-assets/models/Pizza.glb",
+      modelUsdz: "https://maksim15132.github.io/museum/modelUsdz/Roast_chicken.usdz",
+    },
+    {
+      id: "f1",
+      name: "Фотоаппарат Смена-8М",
+      price: 20.0,
+      image: "https://maksim15132.github.io/museum/assets/image/smena-8m.jpg",
+      description: "Фотоаппарат «Смена-8М» был одним из самых популярных в Советском Союзе. Его выпускали с 1970-х по 1990-е годы на Ленинградском оптико-механическом объединении. Простая конструкция и прочный корпус делали камеру удобной даже для начинающих фотографов. С помощью «Смены» люди снимали семейные праздники, школьные мероприятия, поездки и повседневную жизнь.",
+      modelGlb: "https://maksim15132.github.io/museum/assets/modelGlb/smena-8m/smena_8m.glb",
+      modelUsdz: "https://maksim15132.github.io/museum/assets/modelUsdz/Smena_8M.usdz",
+    },
+    {
+      id: "f2",
+      name: "Фотоаппарат Зенит",
+      price: 40.0,
+      image: "https://maksim15132.github.io/museum/assets/image/zenit.jpg",
+      description: "Фотоаппарат «Зенит-Е» стал одной из самых узнаваемых моделей советской фототехники. Его выпускали с середины 1960-х до 1980-х годов на Красногорском механическом заводе. Надёжный металлический корпус и зеркальная система делали камеру удобной как для любителей, так и для начинающих фотографов. На «Зенит-Е» снимали портреты, пейзажи и важные жизненные моменты, а сам аппарат стал символом эпохи плёночной фотографии.",
+      modelGlb: "https://maksim15132.github.io/museum/assets/modelGlb/zenit/zenit-et__free.glb",
+      modelUsdz: "https://maksim15132.github.io/museum/assets/modelUsdz/Zenit-ET.usdz",
+    },
+    {
+      id: "phone1",
+      name: "Переносной телефон ТАИ-43",
+      price: 15.0,
+      image: "https://maksim15132.github.io/museum/assets/image/telephone1.jpg",
+      description: "ТАИ-43 — военно-полевой телефонный аппарат системы МБ с индукторным вызовом производства СССР. Аббревиатура расшифровывается как «телефонный аппарат с индукторным вызовом образца 1943 года»",
+      modelClosedGlb: "https://maksim15132.github.io/museum/assets/modelGlb/telephone1close/telephoneclose.glb",
+      modelClosedUsdz: "https://maksim15132.github.io/museum/assets/modelUsdz/telephoneclose.usdz",
+      modelOpenGlb: "https://maksim15132.github.io/museum/assets/modelGlb/telephone1open/telephoneopen.glb",
+      modelOpenUsdz: "https://maksim15132.github.io/museum/assets/modelUsdz/telephoneopen.usdz",
+      hasStates: true
+    }
     
   ];
 
@@ -189,23 +228,14 @@
     meta.appendChild(nameDiv); meta.appendChild(priceDiv);
 
     const desc = document.createElement("p");
-    desc.style.color = "var(--muted)"; desc.style.marginTop = "8px"; desc.style.fontSize = "40px";
+    desc.style.color = "var(--muted)"; desc.style.marginTop = "8px"; desc.style.fontSize = "14px";
     desc.textContent = dish.description;
 
     const buttonsDiv = document.createElement("div"); buttonsDiv.className = "card-actions";
+    const detailsBtn = document.createElement("button"); detailsBtn.className = "btn btn-primary"; detailsBtn.textContent = "Подробнее";
+    const addBtn = document.createElement("button"); addBtn.className = "btn btn-ghost"; addBtn.textContent = "В корзину";
 
-    const detailsBtn = document.createElement("button");  // создаём <a> вместо <button>
-    detailsBtn.className = "btn btn-primary";        // сохраняем те же стили
-    detailsBtn.textContent = "Перейти в раздел";         // текст ссылки
-    detailsBtn.href = "/ar-models/";                // адрес, куда ведёт ссылка
-    detailsBtn.target = "_blank";                   // если хочешь открывать в новой вкладке
-
-    const addBtn = document.createElement("button"); addBtn.className = "btn btn-ghost"; addBtn.textContent = "(тест)";
-
-   detailsBtn.onclick = () => {
-    window.location.href = "/ar-models/";
-};
-
+    detailsBtn.onclick = () => openModal(dish);
     addBtn.onclick = () => { addToCart(dish, 1); alert("Добавлено в корзину"); };
 
     buttonsDiv.appendChild(detailsBtn); buttonsDiv.appendChild(addBtn);
@@ -441,12 +471,12 @@ function startModelLoad(glbUrl) {
 
   if (phoneState === "closed") {
     phoneState = "open";
-    toggleStateBtn.textContent = "Закрыть телефон";
+    toggleStateBtn.textContent = "Открыть телефон";
     startModelLoad(currentDish.modelOpenGlb);
     arLink.href = currentDish.modelOpenUsdz;
   } else {
     phoneState = "closed";
-    toggleStateBtn.textContent = "Открыть телефон";
+    toggleStateBtn.textContent = "Закрыть телефон";
     startModelLoad(currentDish.modelClosedGlb);
     arLink.href = currentDish.modelClosedUsdz;
   }

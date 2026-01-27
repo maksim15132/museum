@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="description" content="Веб-Приложение с использованием технологии LiDAR — сайт школьного музея." />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="shortcut icon" href="assets/icon.png" type="image/png" />
+<link rel="shortcut icon" href="https://maksim15132.github.io/museum/assets/icon.png" type="image/png" />
 <title>Электронный музей</title>
 <!-- model-viewer -->
 <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
@@ -21,7 +21,7 @@
     <nav class="menu-nav">
       <a href="/" class="menu-link">🏠 Главная</a>
       <a href="/ar-models/" class="menu-link">🧊 3D-модели</a>
-      <a href="/test/" class="menu-link">📚 тест</a>
+      <a href="/military-books/" class="menu-link">📚 Литература</a>
       <a href="/author/" class="menu-link">👤 Автор</a>
     </nav>
   </div>
@@ -29,7 +29,7 @@
 
 <header>
   <div class="brand">
-    <img class="logo-img" src="assets/icon.png" alt="логотип" />
+    <img class="logo-img" src="https://maksim15132.github.io/museum/assets/icon.png" alt="логотип" />
     <div class="title">
       <h1>Сайт электронного музея</h1>
       <p>Музей • AR-просмотр экспонатов</p>
@@ -42,8 +42,8 @@
 </header>
 <main class="container">
   <section style="margin-bottom:14px;">
-    <h2 style="margin:0;">Гавная</h2>
-    <p style="color:var(--muted);margin-top:6px;">Нажмите на карточку, чтобы открыть нужный раздел:</p>
+    <h2 style="margin:0;">3D модели экспонатов</h2>
+    <p style="color:var(--muted);margin-top:6px;">Нажмите “Подробнее”, чтобы открыть мини-страницу экспоната с AR-просмотром и добавить в корзину.</p>
   </section>
   <section id="menu-grid" class="menu-grid"></section>
   <aside id="cart-preview" style="margin-top:22px;display:none;justify-content:flex-end;">
@@ -69,12 +69,12 @@
   <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <div class="modal-preview mv-overlay" id="modal-preview">
       <!-- по умолчанию отображаем изображение; при открытии модалки его заменим на model-viewer -->
-      <img id="modal-img" class="dish-img" src="" alt="" />
+      
 
       <!-- model-viewer присутствует и будет показан немедленно при открытии карточки -->
       <model-viewer
         id="model-viewer"
-        style="width:100%;height:320px;border-radius:8px;background:#081226;"
+        style="width:100%;height:320px;border-radius:8px;background:#b3b4b5;"
 
         alt=""
         camera-controls
