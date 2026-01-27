@@ -203,7 +203,7 @@
     const addBtn = document.createElement("button"); addBtn.className = "btn btn-ghost"; addBtn.textContent = "(тест)";
 
    detailsBtn.onclick = () => {
-    window.location.href = "/ar-models/";
+    window.location.href = "https://maksim15132.github.io/museum/ar-models/";
 };
 
     addBtn.onclick = () => { addToCart(dish, 1); alert("Добавлено в корзину"); };
