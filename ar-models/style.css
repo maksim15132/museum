@@ -463,3 +463,16 @@ model-viewer { visibility: hidden; }
   color: #071022;
   transform: translateX(4px);
 }
+
+
+
+#model-viewer {
+  height: 500px;
+}
+
+/* Телефоны */
+@media (orientation: portrait) {
+  #model-viewer {
+    height: 320px;
+  }
+}
