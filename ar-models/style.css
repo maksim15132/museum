@@ -522,3 +522,18 @@ footer{
     margin-top: 150px;
   }
 }
+
+.header-controls {
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+/* для телефонов или портретной ориентации */
+@media (max-width: 820px), (orientation: portrait) {
+  .header-controls {
+    display: flex;            /* гарантируем flex */
+    justify-content: flex-end; /* сдвигаем кнопки вправо */
+    width: 100%;              /* блок занимает всю ширину */
+    gap: 10px;                /* расстояние между кнопками */
+  }
+}
