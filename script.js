@@ -9,10 +9,10 @@
   const MENU = [
     {
       id: "page1",
-      name: "3D модели",
+      name: "Школьный музей",
       price: 9.5,
-      image: "https://static9.tgstat.ru/channels/_0/15/1511c3d7c60f71479ee2eb53e9e3f417.jpg",
-      description: "ТЕСТ.",
+      image: "https://maksim15132.github.io/museum/assets/i.jpg",
+      description: "Здесь вы можете увидеть экспонаты нашего прекрасного музея",
       modelGlb: "https://maksim15132.github.io/museum/assets/modelGlb/margarita/pizza.glb",
       modelUsdz: "https://modelviewer.dev/shared-assets/models/Pizza.usdz",
     },
@@ -20,20 +20,12 @@
       id: "page2",
       name: "Литература",
       price: 11.0,
-      image: "https://cdn1.ozone.ru/s3/multimedia-9/6007660341.jpg",
-      description: "ТЕСТ.",
+      image: "https://maksim15132.github.io/museum/assets/1546106602_carti-14.jpg",
+      description: "Здесь вы модите увидеть коллекцию книг, которые я рекомендую для чтения.",
       modelGlb: "https://maksim15132.github.io/museum/assets/modelGlb/piperoni/pizza.glb",
       modelUsdz: "https://maksim15132.github.io/museum/assets/modelUsdz/Pepperoni_and_Spinach_Pizza.usdz",
     },
-    {
-      id: "page3",
-      name: "ТЕСТ",
-      price: 8.0, 
-      image: "https://img.freepik.com/premium-vector/question-mark-3d-vector-illustration_1076263-937.jpg?semt=ais_hybrid&w=740&q=80",
-      description: "ТЕСТ.",
-      modelGlb: "https://modelviewer.dev/shared-assets/models/Pizza.glb",
-      modelUsdz: "https://modelviewer.dev/shared-assets/models/Pizza.usdz",
-    },
+  
     
   ];
 
@@ -189,7 +181,7 @@
     meta.appendChild(nameDiv); meta.appendChild(priceDiv);
 
     const desc = document.createElement("p");
-    desc.style.color = "var(--muted)"; desc.style.marginTop = "8px"; desc.style.fontSize = "40px";
+    desc.style.color = "var(--muted)"; desc.style.marginTop = "8px"; desc.style.fontSize = "32px";
     desc.textContent = dish.description;
 
     const buttonsDiv = document.createElement("div"); buttonsDiv.className = "card-actions";
