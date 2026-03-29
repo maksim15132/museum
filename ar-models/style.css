@@ -229,21 +229,23 @@ button.btn-ghost {
   padding: 16px;
 }
 .modal-panel {
-  /* ширина остаётся адаптивной */
   width: min(980px, 95%);
   
-  /* высота делаем равной ширине, но не больше 80% экрана */
-  aspect-ratio: 1 / 1;
-  max-height: 70vh;
-  
+  /* ❌ УБИРАЕМ ЭТО */
+  /* aspect-ratio: 1 / 1; */
+
+  max-height: 85vh;
+
   background: var(--card);
   border-radius: 14px;
   padding: 18px;
+
   display: grid;
   grid-template-columns: 360px 1fr;
   gap: 16px;
-  align-items: start;
-  overflow: hidden;
+
+  overflow-y: auto; /* ✅ ВКЛЮЧАЕМ СКРОЛЛ */
+  -webkit-overflow-scrolling: touch;
 }
 
 /* увеличим модалку на больших экранах */
@@ -263,10 +265,8 @@ button.btn-ghost {
 
 /* preview и info внутри модалки */
 .modal-preview {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: stretch;
+  position: relative; /* 🔥 обязательно */
+  display: block;     /* ❌ убираем flex */
   overflow: hidden;
 }
 
