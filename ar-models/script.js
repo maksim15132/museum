@@ -67,6 +67,7 @@
       price: 15.0,
       image: "https://maksim15132.github.io/museum/assets/image/telephone1.jpg",
       description: "ТАИ-43 — военно-полевой телефонный аппарат системы МБ с индукторным вызовом производства СССР. Аббревиатура расшифровывается как «телефонный аппарат с индукторным вызовом образца 1943 года»",
+      modelGlb: "https://maksim15132.github.io/museum/assets/modelGlb/telephone1open/telephoneopen.glb",
       modelClosedGlb: "https://maksim15132.github.io/museum/assets/modelGlb/telephone1close/telephoneclose.glb",
       modelClosedUsdz: "https://maksim15132.github.io/museum/assets/modelUsdz/telephoneclose.usdz",
       modelOpenGlb: "https://maksim15132.github.io/museum/assets/modelGlb/telephone1open/telephoneopen.glb",
@@ -92,6 +93,8 @@
   const modelError = document.getElementById("model-error");
   const modalPanel = document.querySelector(".modal-panel");
   const modalPreview = document.querySelector(".modal-preview");
+
+  const loadedModels = {}; // ключ = glbUrl, значение = true, если модель уже загружена
 
   const cartBtn = document.getElementById("cart-btn");
   const cartCount = document.getElementById("cart-count");
@@ -228,14 +231,14 @@
     meta.appendChild(nameDiv); meta.appendChild(priceDiv);
 
     const desc = document.createElement("p");
-    desc.style.color = "var(--muted)"; desc.style.marginTop = "8px"; desc.style.fontSize = "14px";
+    desc.style.color = "var(--muted)"; desc.style.marginTop = "8px"; desc.style.fontSize = "20px";
     desc.textContent = dish.description;
 
     const buttonsDiv = document.createElement("div"); buttonsDiv.className = "card-actions";
     
     const detailsBtn = document.createElement("button");  // создаём <a> вместо <button>
     detailsBtn.className = "btn btn-primary big-btn";       // сохраняем те же стили
-    detailsBtn.textContent = "Перейти в раздел";         // текст ссылки
+    detailsBtn.textContent = "Описание экспоната";         // текст ссылки
     detailsBtn.href = "https://maksim15132.github.io/museum/ar-models/";                // адрес, куда ведёт ссылка
     detailsBtn.target = "_blank";                   // если хочешь открывать в новой вкладке
     
@@ -333,43 +336,63 @@
     }
   }
 
-  // centralised start loader -> attaches listeners and sets src
+
+let currentModelUrl = "";
+let loadSeq = 0;
+
 function startModelLoad(glbUrl) {
   if (!glbUrl) return;
 
-  showLoader(true);
-  modelError.style.display = "none";
-  modelStatus.textContent = "Статус 3D: загрузка...";
+  currentModelUrl = glbUrl;
+  const isAlreadyLoaded = !!loadedModels[glbUrl];
 
+  modelError.style.display = "none";
   modelViewer.style.display = "block";
   modelViewer.style.visibility = "visible";
   modelViewer.style.opacity = "1";
+  modalPanel.classList.add("model-loaded");
 
-  modelViewer.removeAttribute("src");
-
-  const onLoad = () => {
+  // если модель уже была загружена — не показываем "загрузка..."
+  if (isAlreadyLoaded && modelViewer.src === glbUrl) {
     showLoader(false);
     modelStatus.textContent = "Статус 3D: модель загружена ✅";
-    modalImg.style.display = "none";
-    modalPanel.classList.add("model-loaded");
-    modelViewer.removeEventListener("load", onLoad);
-    modelViewer.removeEventListener("error", onError);
+    return;
+  }
+
+  // если модель уже в кеше, но src был сброшен — просто ставим её без мигания лоадера
+  if (isAlreadyLoaded) {
+    showLoader(false);
+    modelStatus.textContent = "Статус 3D: модель загружена ✅";
+    modelViewer.src = glbUrl;
+    return;
+  }
+
+  // первая загрузка
+  const seq = ++loadSeq;
+
+  showLoader(true);
+  modelStatus.textContent = "Статус 3D: загрузка...";
+
+  const onLoad = () => {
+    if (seq !== loadSeq) return;
+    loadedModels[glbUrl] = true;
+    showLoader(false);
+    modelStatus.textContent = "Статус 3D: модель загружена ✅";
+    if (modalImg) modalImg.style.display = "none";
+    modelPanel.classList.add("model-loaded");
   };
 
   const onError = () => {
+    if (seq !== loadSeq) return;
     showLoader(false);
     modelStatus.textContent = "Статус 3D: ошибка загрузки ❌";
     modelError.style.display = "block";
-    modelViewer.removeEventListener("load", onLoad);
-    modelViewer.removeEventListener("error", onError);
   };
 
   modelViewer.addEventListener("load", onLoad, { once: true });
   modelViewer.addEventListener("error", onError, { once: true });
 
-  requestAnimationFrame(() => {
-    modelViewer.src = glbUrl;
-  });
+  modelViewer.src = glbUrl;
 }
 
 
@@ -389,36 +412,35 @@ function startModelLoad(glbUrl) {
     arLink.style.display = dish.modelUsdz ? "inline-block" : "none";
 
     toggleStateBtn.style.display = dish.hasStates ? "inline-block" : "none";
-    if (dish.hasStates) toggleStateBtn.textContent = "Открыть телефон";
+    if (dish.hasStates) toggleStateBtn.textContent = "🔑 Открыть телефон";
 
     startModelLoad(dish.modelGlb); // 🔥 ЕДИНСТВЕННАЯ загрузка
-}
+  }
 
 
   function closeModal() {
-    modal.style.display = "none";
-    body.classList.remove("modal-open");
+  modal.style.display = "none";
+  body.classList.remove("modal-open");
 
-    // remove listeners and reset viewer
-    try { modelViewer.removeEventListener("load", onModelLoaded); } catch(e) {}
-    try { modelViewer.removeEventListener("error", onModelError); } catch(e) {}
-    try { modelViewer.removeAttribute("src"); } catch(e) {}
-    modelViewer.style.display = "none";
-    modelViewer.style.visibility = "hidden";
-    toggleStateBtn.style.display = "none";
-    modalImg.style.display = "block";
-    modelStatus.textContent = "Статус 3D: idle";
-    modelError.style.display = "none";
-    showLoader(false);
-    modalPanel.classList.remove("model-loaded");
+  // не удаляем src, иначе следующая открытая карточка будет грузиться заново
+  // modelViewer.removeAttribute("src");
 
-    // hide retry UI
-    const retryWrap = document.getElementById("mv-retry-wrap");
-    if (retryWrap) retryWrap.style.display = "none";
+  modelViewer.style.display = "none";
+  modelViewer.style.visibility = "hidden";
 
-    // ensure auto-rotate off visually (but preserve state)
-    const rotateBtn = document.getElementById("mv-rotate-btn");
-    if (rotateBtn) rotateBtn.classList.toggle("active", autoRotate);
+  toggleStateBtn.style.display = "none";
+  if (modalImg) modalImg.style.display = "block";
+
+  modelStatus.textContent = "Статус 3D: idle";
+  modelError.style.display = "none";
+  showLoader(false);
+  modalPanel.classList.remove("model-loaded");
+
+  const retryWrap = document.getElementById("mv-retry-wrap");
+  if (retryWrap) retryWrap.style.display = "none";
+
+  const rotateBtn = document.getElementById("mv-rotate-btn");
+  if (rotateBtn) rotateBtn.classList.toggle("active", autoRotate);
   }
 
   closeModalBtn.onclick = closeModal;
@@ -427,10 +449,6 @@ function startModelLoad(glbUrl) {
   addToCartBtn.onclick = () => {
     if (currentDish) { addToCart(currentDish, 1); alert("Добавлено в корзину"); }
   };
-
-
-
-
 
 
  
@@ -476,12 +494,12 @@ function startModelLoad(glbUrl) {
 
   if (phoneState === "closed") {
     phoneState = "open";
-    toggleStateBtn.textContent = "Открыть телефон";
+    toggleStateBtn.textContent = "🔑 Открыть телефон";
     startModelLoad(currentDish.modelOpenGlb);
     arLink.href = currentDish.modelOpenUsdz;
   } else {
     phoneState = "closed";
-    toggleStateBtn.textContent = "Закрыть телефон";
+    toggleStateBtn.textContent = "🔒 Закрыть телефон";
     startModelLoad(currentDish.modelClosedGlb);
     arLink.href = currentDish.modelClosedUsdz;
   }

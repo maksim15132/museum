@@ -10,6 +10,15 @@
   --text-light: #0b1220;
   --muted-light: #607089;
   --accent-light: #ff6b35;
+
+
+  .dark {
+  --btn-bg: rgba(255,255,255,0.08);
+  }
+
+.light {
+  --btn-bg: rgba(0,0,0,0.08);
+  }
 }
 
 /* запрет двойного зума / базовое поведение тача */
@@ -382,7 +391,16 @@ model-viewer { visibility: hidden; }
 @keyframes mv-spin { to { transform: rotate(360deg); } }
 .mv-overlay { position: relative; }
 .mv-controls { margin-top: 10px; display:flex; gap:8px; align-items:center; }
-.mv-btn { padding:8px 10px; border-radius:8px; border:1px solid rgba(255,255,255,0.06); background:transparent; cursor:pointer; font-weight:700; }
+.mv-btn {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: var(--btn-bg); /* 👈 теперь адаптивно */
+  color: var(--text);
+  cursor: pointer;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
 .mv-btn.active { background: linear-gradient(90deg,var(--accent),#ffb28b); color:#071022; }
 .mv-retry { padding:6px 8px; border-radius:8px; background: rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.06); cursor:pointer; }
 
@@ -557,4 +575,9 @@ footer{
 
 .modal-backdrop {
   z-index: 2000; /* тоже выше header */
+}
+
+.modal-actions .btn {
+  font-size: 20px;
+  padding: 14px 6px;
 }
