@@ -187,20 +187,19 @@
     const buttonsDiv = document.createElement("div"); buttonsDiv.className = "card-actions";
 
     const detailsBtn = document.createElement("button");  // создаём <a> вместо <button>
-    detailsBtn.className = "btn btn-primary";        // сохраняем те же стили
+    detailsBtn.className = "btn btn-primary big-btn";     // сохраняем те же стили
     detailsBtn.textContent = "Перейти в раздел";         // текст ссылки
     detailsBtn.href = "https://maksim15132.github.io/museum/ar-models/";                // адрес, куда ведёт ссылка
     detailsBtn.target = "_blank";                   // если хочешь открывать в новой вкладке
 
-    const addBtn = document.createElement("button"); addBtn.className = "btn btn-ghost"; addBtn.textContent = "(тест)";
+    
 
    detailsBtn.onclick = () => {
     window.location.href = "https://maksim15132.github.io/museum/ar-models/";
 };
 
-    addBtn.onclick = () => { addToCart(dish, 1); alert("Добавлено в корзину"); };
 
-    buttonsDiv.appendChild(detailsBtn); buttonsDiv.appendChild(addBtn);
+    buttonsDiv.appendChild(detailsBtn);
 
     content.appendChild(meta); content.appendChild(desc); content.appendChild(buttonsDiv);
 

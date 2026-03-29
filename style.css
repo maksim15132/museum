@@ -111,7 +111,7 @@ main.container {
 .menu-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 24px;
+  gap: 32px;
   align-items: stretch;
 }
 
@@ -536,4 +536,18 @@ footer{
     width: 100%;              /* блок занимает всю ширину */
     gap: 10px;                /* расстояние между кнопками */
   }
+}
+
+
+.big-btn {
+  display: inline-block;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-size: 22px;      /* текст больше */
+  padding: 16px 28px;   /* сама кнопка больше */
+  
+}
+
+.big-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 20px rgba(255, 140, 0, 0.4);
 }
