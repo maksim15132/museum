@@ -21,7 +21,7 @@
       name: "Литература",
       price: 11.0,
       image: "https://maksim15132.github.io/museum/assets/1546106602_carti-14.jpg",
-      description: "Здесь вы модите увидеть коллекцию книг, которые я рекомендую для чтения.",
+      description: "Здесь вы можите увидеть коллекцию книг, которые я рекомендую для чтения.",
       modelGlb: "https://maksim15132.github.io/museum/assets/modelGlb/piperoni/pizza.glb",
       modelUsdz: "https://maksim15132.github.io/museum/assets/modelUsdz/Pepperoni_and_Spinach_Pizza.usdz",
     },
@@ -98,7 +98,7 @@
         font-weight:700;
       }
       .mv-btn.active {
-        background: linear-gradient(90deg,var(--accent),#ffb28b);
+        background: linear-gradient(90deg,var(--accent),#ffb28b); color:#071022;
         color:#071022;
       }
       .mv-retry {
@@ -132,7 +132,7 @@
       themeToggle.textContent = "🌙 Тёмная";
     } else {
       body.classList.remove("light"); body.classList.add("dark");
-      themeToggle.textContent = "☀️ Тема";
+      themeToggle.textContent = "☀️ Светлая";
     }
     localStorage.setItem("ar_theme", theme);
   }
