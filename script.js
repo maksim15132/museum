@@ -15,6 +15,7 @@
       description: "Здесь вы можете увидеть экспонаты нашего прекрасного музея",
       modelGlb: "https://maksim15132.github.io/museum/assets/modelGlb/margarita/pizza.glb",
       modelUsdz: "https://modelviewer.dev/shared-assets/models/Pizza.usdz",
+      link: "https://maksim15132.github.io/museum/ar-models/",
     },
     {
       id: "page2",
@@ -24,6 +25,7 @@
       description: "Здесь вы можите увидеть коллекцию книг, которые я рекомендую для чтения.",
       modelGlb: "https://maksim15132.github.io/museum/assets/modelGlb/piperoni/pizza.glb",
       modelUsdz: "https://maksim15132.github.io/museum/assets/modelUsdz/Pepperoni_and_Spinach_Pizza.usdz",
+      link: "https://maksim15132.github.io/museum/books/",
     },
   
     
@@ -189,13 +191,9 @@
     const detailsBtn = document.createElement("button");  // создаём <a> вместо <button>
     detailsBtn.className = "btn btn-primary big-btn";     // сохраняем те же стили
     detailsBtn.textContent = "Перейти в раздел";         // текст ссылки
-    detailsBtn.href = "https://maksim15132.github.io/museum/ar-models/";                // адрес, куда ведёт ссылка
-    detailsBtn.target = "_blank";                   // если хочешь открывать в новой вкладке
-
+    detailsBtn.onclick = () => {
+      window.location.href = dish.link;
     
-
-   detailsBtn.onclick = () => {
-    window.location.href = "https://maksim15132.github.io/museum/ar-models/";
 };
 
 
