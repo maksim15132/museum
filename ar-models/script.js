@@ -448,9 +448,10 @@ function startModelLoad(glbUrl) {
   modal.onclick = (e) => { if (e.target === modal) closeModal(); };
 
   addToCartBtn.onclick = () => {
-    if (currentDish) { addToCart(currentDish, 1); alert("Добавлено в корзину"); }
-  };
-
+  if (currentDish && currentDish.modelGlb) {
+    window.open(currentDish.modelGlb, "_blank");
+  }
+};
 
  
 
