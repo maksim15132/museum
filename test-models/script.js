@@ -365,7 +365,7 @@ function startModelLoad(glbUrl) {
     body.classList.add("modal-open");
 
     modalTitle.textContent = dish.name;
-    modalPrice.textContent = `Цена: €${dish.price.toFixed(2)}`;
+    modalPrice.textContent = ``;
     modalDesc.textContent = dish.description;
 
     modelViewer.poster = dish.image;
