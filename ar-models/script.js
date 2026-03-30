@@ -8,72 +8,24 @@
 
   const MENU = [
     {
-      id: "m1",
-      name: "Маргарита",
+      id: "page1",
+      name: "Школьный музей",
       price: 9.5,
-      image: "https://maksim15132.github.io/museum/assets/image/margarita.jpg",
-      description: "Классическая пицца Маргарита — томатный соус, моцарелла, базилик.",
+      image: "https://maksim15132.github.io/museum/assets/i.jpg",
+      description: "Здесь вы можете увидеть экспонаты нашего прекрасного музея",
       modelGlb: "https://maksim15132.github.io/museum/assets/modelGlb/margarita/pizza.glb",
       modelUsdz: "https://modelviewer.dev/shared-assets/models/Pizza.usdz",
     },
     {
-      id: "m2",
-      name: "Пепперони",
+      id: "page2",
+      name: "Литература",
       price: 11.0,
-      image: "https://maksim15132.github.io/museum/assets/image/piperoni.jpg",
-      description: "Острая пепперони с хрустящей корочкой и тянущимся сыром.",
+      image: "https://maksim15132.github.io/museum/assets/1546106602_carti-14.jpg",
+      description: "Здесь вы модите увидеть коллекцию книг, которые я рекомендую для чтения.",
       modelGlb: "https://maksim15132.github.io/museum/assets/modelGlb/piperoni/pizza.glb",
       modelUsdz: "https://maksim15132.github.io/museum/assets/modelUsdz/Pepperoni_and_Spinach_Pizza.usdz",
     },
-    {
-      id: "s1",
-      name: "Цезарь с курицей",
-      price: 8.0,
-      image: "https://maksim15132.github.io/museum/assets/image/chiken.png",
-      description: "Свежий салат Цезарь с жареной курицей и пармезаном.",
-      modelGlb: "https://modelviewer.dev/shared-assets/models/Pizza.glb",
-      modelUsdz: "https://modelviewer.dev/shared-assets/models/Pizza.usdz",
-    },
-    {
-      id: "m3",
-      name: "Курица",
-      price: 8.0,
-      image: "https://maksim15132.github.io/museum/assets/image/chiken_gril.jpg",
-      description: "Запечёная курица.",
-      modelGlb: "https://modelviewer.dev/shared-assets/models/Pizza.glb",
-      modelUsdz: "https://maksim15132.github.io/museum/modelUsdz/Roast_chicken.usdz",
-    },
-    {
-      id: "f1",
-      name: "Фотоаппарат Смена-8М",
-      price: 20.0,
-      image: "https://maksim15132.github.io/museum/assets/image/smena-8m.jpg",
-      description: "Фотоаппарат «Смена-8М» был одним из самых популярных в Советском Союзе. Его выпускали с 1970-х по 1990-е годы на Ленинградском оптико-механическом объединении. Простая конструкция и прочный корпус делали камеру удобной даже для начинающих фотографов. С помощью «Смены» люди снимали семейные праздники, школьные мероприятия, поездки и повседневную жизнь.",
-      modelGlb: "https://maksim15132.github.io/museum/assets/modelGlb/smena-8m/smena_8m.glb",
-      modelUsdz: "https://maksim15132.github.io/museum/assets/modelUsdz/Smena_8M.usdz",
-    },
-    {
-      id: "f2",
-      name: "Фотоаппарат Зенит",
-      price: 40.0,
-      image: "https://maksim15132.github.io/museum/assets/image/zenit.jpg",
-      description: "Фотоаппарат «Зенит-Е» стал одной из самых узнаваемых моделей советской фототехники. Его выпускали с середины 1960-х до 1980-х годов на Красногорском механическом заводе. Надёжный металлический корпус и зеркальная система делали камеру удобной как для любителей, так и для начинающих фотографов. На «Зенит-Е» снимали портреты, пейзажи и важные жизненные моменты, а сам аппарат стал символом эпохи плёночной фотографии.",
-      modelGlb: "https://maksim15132.github.io/museum/assets/modelGlb/zenit/zenit-et__free.glb",
-      modelUsdz: "https://maksim15132.github.io/museum/assets/modelUsdz/Zenit-ET.usdz",
-    },
-    {
-      id: "phone1",
-      name: "Переносной телефон ТАИ-43",
-      price: 15.0,
-      image: "https://maksim15132.github.io/museum/assets/image/telephone1.jpg",
-      description: "ТАИ-43 — военно-полевой телефонный аппарат системы МБ с индукторным вызовом производства СССР. Аббревиатура расшифровывается как «телефонный аппарат с индукторным вызовом образца 1943 года»",
-      modelGlb: "https://maksim15132.github.io/museum/assets/modelGlb/telephone1open/telephoneopen.glb",
-      modelClosedGlb: "https://maksim15132.github.io/museum/assets/modelGlb/telephone1close/telephoneclose.glb",
-      modelClosedUsdz: "https://maksim15132.github.io/museum/assets/modelUsdz/telephoneclose.usdz",
-      modelOpenGlb: "https://maksim15132.github.io/museum/assets/modelGlb/telephone1open/telephoneopen.glb",
-      modelOpenUsdz: "https://maksim15132.github.io/museum/assets/modelUsdz/telephoneopen.usdz",
-      hasStates: true
-    }
+  
     
   ];
 
@@ -93,8 +45,6 @@
   const modelError = document.getElementById("model-error");
   const modalPanel = document.querySelector(".modal-panel");
   const modalPreview = document.querySelector(".modal-preview");
-
-  const loadedModels = {}; // ключ = glbUrl, значение = true, если модель уже загружена
 
   const cartBtn = document.getElementById("cart-btn");
   const cartCount = document.getElementById("cart-count");
@@ -231,20 +181,23 @@
     meta.appendChild(nameDiv); meta.appendChild(priceDiv);
 
     const desc = document.createElement("p");
-    desc.style.color = "var(--muted)"; desc.style.marginTop = "8px"; desc.style.fontSize = "20px";
+    desc.style.color = "var(--muted)"; desc.style.marginTop = "8px"; desc.style.fontSize = "32px";
     desc.textContent = dish.description;
 
     const buttonsDiv = document.createElement("div"); buttonsDiv.className = "card-actions";
-    
+
     const detailsBtn = document.createElement("button");  // создаём <a> вместо <button>
-    detailsBtn.className = "btn btn-primary big-btn";       // сохраняем те же стили
-    detailsBtn.textContent = "Описание экспоната";         // текст ссылки
+    detailsBtn.className = "btn btn-primary big-btn";     // сохраняем те же стили
+    detailsBtn.textContent = "Перейти в раздел";         // текст ссылки
     detailsBtn.href = "https://maksim15132.github.io/museum/ar-models/";                // адрес, куда ведёт ссылка
     detailsBtn.target = "_blank";                   // если хочешь открывать в новой вкладке
+
     
-    
-    detailsBtn.onclick = () => openModal(dish);
-    
+
+   detailsBtn.onclick = () => {
+    window.location.href = "https://maksim15132.github.io/museum/ar-models/";
+};
+
 
     buttonsDiv.appendChild(detailsBtn);
 
@@ -336,63 +289,43 @@
     }
   }
 
-
-let currentModelUrl = "";
-let loadSeq = 0;
-
+  // centralised start loader -> attaches listeners and sets src
 function startModelLoad(glbUrl) {
   if (!glbUrl) return;
 
-  currentModelUrl = glbUrl;
-  const isAlreadyLoaded = !!loadedModels[glbUrl];
-
+  showLoader(true);
   modelError.style.display = "none";
+  modelStatus.textContent = "Статус 3D: загрузка...";
+
   modelViewer.style.display = "block";
   modelViewer.style.visibility = "visible";
   modelViewer.style.opacity = "1";
-  modalPanel.classList.add("model-loaded");
 
-  // если модель уже была загружена — не показываем "загрузка..."
-  if (isAlreadyLoaded && modelViewer.src === glbUrl) {
-    showLoader(false);
-    modelStatus.textContent = "Статус 3D: модель загружена ✅";
-    return;
-  }
-
-  // если модель уже в кеше, но src был сброшен — просто ставим её без мигания лоадера
-  if (isAlreadyLoaded) {
-    showLoader(false);
-    modelStatus.textContent = "Статус 3D: модель загружена ✅";
-    modelViewer.src = glbUrl;
-    return;
-  }
-
-  // первая загрузка
-  const seq = ++loadSeq;
-
-  showLoader(true);
-  modelStatus.textContent = "Статус 3D: загрузка...";
+  modelViewer.removeAttribute("src");
 
   const onLoad = () => {
-    if (seq !== loadSeq) return;
-    loadedModels[glbUrl] = true;
     showLoader(false);
     modelStatus.textContent = "Статус 3D: модель загружена ✅";
-    if (modalImg) modalImg.style.display = "none";
-    modelPanel.classList.add("model-loaded");
+    modalImg.style.display = "none";
+    modalPanel.classList.add("model-loaded");
+    modelViewer.removeEventListener("load", onLoad);
+    modelViewer.removeEventListener("error", onError);
   };
 
   const onError = () => {
-    if (seq !== loadSeq) return;
     showLoader(false);
     modelStatus.textContent = "Статус 3D: ошибка загрузки ❌";
     modelError.style.display = "block";
+    modelViewer.removeEventListener("load", onLoad);
+    modelViewer.removeEventListener("error", onError);
   };
 
   modelViewer.addEventListener("load", onLoad, { once: true });
   modelViewer.addEventListener("error", onError, { once: true });
 
-  modelViewer.src = glbUrl;
+  requestAnimationFrame(() => {
+    modelViewer.src = glbUrl;
+  });
 }
 
 
@@ -412,35 +345,36 @@ function startModelLoad(glbUrl) {
     arLink.style.display = dish.modelUsdz ? "inline-block" : "none";
 
     toggleStateBtn.style.display = dish.hasStates ? "inline-block" : "none";
-    if (dish.hasStates) toggleStateBtn.textContent = "🔑 Открыть телефон";
+    if (dish.hasStates) toggleStateBtn.textContent = "Открыть телефон";
 
     startModelLoad(dish.modelGlb); // 🔥 ЕДИНСТВЕННАЯ загрузка
-  }
+}
 
 
   function closeModal() {
-  modal.style.display = "none";
-  body.classList.remove("modal-open");
+    modal.style.display = "none";
+    body.classList.remove("modal-open");
 
-  // не удаляем src, иначе следующая открытая карточка будет грузиться заново
-  // modelViewer.removeAttribute("src");
+    // remove listeners and reset viewer
+    try { modelViewer.removeEventListener("load", onModelLoaded); } catch(e) {}
+    try { modelViewer.removeEventListener("error", onModelError); } catch(e) {}
+    try { modelViewer.removeAttribute("src"); } catch(e) {}
+    modelViewer.style.display = "none";
+    modelViewer.style.visibility = "hidden";
+    toggleStateBtn.style.display = "none";
+    modalImg.style.display = "block";
+    modelStatus.textContent = "Статус 3D: idle";
+    modelError.style.display = "none";
+    showLoader(false);
+    modalPanel.classList.remove("model-loaded");
 
-  modelViewer.style.display = "none";
-  modelViewer.style.visibility = "hidden";
+    // hide retry UI
+    const retryWrap = document.getElementById("mv-retry-wrap");
+    if (retryWrap) retryWrap.style.display = "none";
 
-  toggleStateBtn.style.display = "none";
-  if (modalImg) modalImg.style.display = "block";
-
-  modelStatus.textContent = "Статус 3D: idle";
-  modelError.style.display = "none";
-  showLoader(false);
-  modalPanel.classList.remove("model-loaded");
-
-  const retryWrap = document.getElementById("mv-retry-wrap");
-  if (retryWrap) retryWrap.style.display = "none";
-
-  const rotateBtn = document.getElementById("mv-rotate-btn");
-  if (rotateBtn) rotateBtn.classList.toggle("active", autoRotate);
+    // ensure auto-rotate off visually (but preserve state)
+    const rotateBtn = document.getElementById("mv-rotate-btn");
+    if (rotateBtn) rotateBtn.classList.toggle("active", autoRotate);
   }
 
   closeModalBtn.onclick = closeModal;
@@ -449,6 +383,10 @@ function startModelLoad(glbUrl) {
   addToCartBtn.onclick = () => {
     if (currentDish) { addToCart(currentDish, 1); alert("Добавлено в корзину"); }
   };
+
+
+
+
 
 
  
@@ -494,12 +432,12 @@ function startModelLoad(glbUrl) {
 
   if (phoneState === "closed") {
     phoneState = "open";
-    toggleStateBtn.textContent = "🔑 Открыть телефон";
+    toggleStateBtn.textContent = "Закрыть телефон";
     startModelLoad(currentDish.modelOpenGlb);
     arLink.href = currentDish.modelOpenUsdz;
   } else {
     phoneState = "closed";
-    toggleStateBtn.textContent = "🔒 Закрыть телефон";
+    toggleStateBtn.textContent = "Открыть телефон";
     startModelLoad(currentDish.modelClosedGlb);
     arLink.href = currentDish.modelClosedUsdz;
   }
