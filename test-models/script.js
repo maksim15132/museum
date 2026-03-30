@@ -31,7 +31,7 @@
       name: "Чипсы",
       price: 20.0,
       image: "https://maksim15132.github.io/museum/assets/image/ships.jpg",
-      description: "Фотоаппарат «Смена-8М» был одним из самых популярных в Советском Союзе. Его выпускали с 1970-х по 1990-е годы на Ленинградском оптико-механическом объединении. Простая конструкция и прочный корпус делали камеру удобной даже для начинающих фотографов. С помощью «Смены» люди снимали семейные праздники, школьные мероприятия, поездки и повседневную жизнь.",
+      description: "3D-модель цилиндрической банки классических чипсов PRINGLES.",
       modelGlb: "https://maksim15132.github.io/museum/assets/modelGlb/ships.glb",
       modelUsdz: "https://maksim15132.github.io/museum/assets/modelUsdz/ships.usdz",
     },
