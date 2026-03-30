@@ -581,3 +581,26 @@ footer{
   font-size: 20px;
   padding: 14px 6px;
 }
+
+#close-modal-btn {
+  background: #ff3236;
+  color: white;
+  border: none;
+}
+
+#close-modal-btn:hover {
+  background: #ff1f1f;
+}
+
+@media (orientation: portrait) {
+  .modal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .modal-actions button,
+  .modal-actions a {
+    width: 100%;
+  }
+}

@@ -142,8 +142,9 @@
       .mv-btn {
         padding:8px 10px;
         border-radius:8px;
-        border:1px solid rgba(255,255,255,0.06);
-        background:transparent;
+        border:1px solid rgba(211, 17, 17, 0.06);
+        background: var(--btn-bg);
+        color: var(--text);
         cursor:pointer;
         font-weight:700;
       }
@@ -182,7 +183,7 @@
       themeToggle.textContent = "🌙 Тёмная";
     } else {
       body.classList.remove("light"); body.classList.add("dark");
-      themeToggle.textContent = "☀️ Тема";
+      themeToggle.textContent = "☀️ Светлая";
     }
     localStorage.setItem("ar_theme", theme);
   }
