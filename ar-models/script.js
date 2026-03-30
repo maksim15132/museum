@@ -8,42 +8,6 @@
 
   const MENU = [
     {
-      id: "m1",
-      name: "Маргарита",
-      price: 9.5,
-      image: "https://maksim15132.github.io/museum/assets/image/margarita.jpg",
-      description: "Классическая пицца Маргарита — томатный соус, моцарелла, базилик.",
-      modelGlb: "https://maksim15132.github.io/museum/assets/modelGlb/margarita/pizza.glb",
-      modelUsdz: "https://modelviewer.dev/shared-assets/models/Pizza.usdz",
-    },
-    {
-      id: "m2",
-      name: "Пепперони",
-      price: 11.0,
-      image: "https://maksim15132.github.io/museum/assets/image/piperoni.jpg",
-      description: "Острая пепперони с хрустящей корочкой и тянущимся сыром.",
-      modelGlb: "https://maksim15132.github.io/museum/assets/modelGlb/piperoni/pizza.glb",
-      modelUsdz: "https://maksim15132.github.io/museum/assets/modelUsdz/Pepperoni_and_Spinach_Pizza.usdz",
-    },
-    {
-      id: "s1",
-      name: "Цезарь с курицей",
-      price: 8.0,
-      image: "https://maksim15132.github.io/museum/assets/image/chiken.png",
-      description: "Свежий салат Цезарь с жареной курицей и пармезаном.",
-      modelGlb: "https://modelviewer.dev/shared-assets/models/Pizza.glb",
-      modelUsdz: "https://modelviewer.dev/shared-assets/models/Pizza.usdz",
-    },
-    {
-      id: "m3",
-      name: "Курица",
-      price: 8.0,
-      image: "https://maksim15132.github.io/museum/assets/image/chiken_gril.jpg",
-      description: "Запечёная курица.",
-      modelGlb: "https://modelviewer.dev/shared-assets/models/Pizza.glb",
-      modelUsdz: "https://maksim15132.github.io/museum/modelUsdz/Roast_chicken.usdz",
-    },
-    {
       id: "f1",
       name: "Фотоаппарат Смена-8М",
       price: 20.0,
@@ -73,7 +37,25 @@
       modelOpenGlb: "https://maksim15132.github.io/museum/assets/modelGlb/telephone1open/telephoneopen.glb",
       modelOpenUsdz: "https://maksim15132.github.io/museum/assets/modelUsdz/telephoneopen.usdz",
       hasStates: true
-    }
+    },
+    {
+      id: "z1",
+      name: "Деревянные часы «Янтарь»",
+      price: 40.0,
+      image: "https://maksim15132.github.io/museum/assets/image/chsi.jpg",
+      description: "Деревянные часы «Янтарь» Выпущены на Орловском часовом заводе. Были популярны в Советском Союзе благодаря своему элегантному дизайну и высокому качеству изготовления. Стоили около 70-100 рублей. Для сравнения, средняя зарплата рабочего в СССР составляла примерно 150 рублей в месяц. Часы стали символом надежности и стиля советского производства, поэтому пользовались популярностью среди иностранных покупателей.",
+      modelGlb: "https://maksim15132.github.io/museum/assets/modelGlb/chsi.glb",
+      modelUsdz: "https://maksim15132.github.io/museum/assets/modelUsdz/chsi.usdz",
+    },
+    {
+      id: "z2",
+      name: "Облучатель ртутно-кварцевый",
+      price: 40.0,
+      image: "https://maksim15132.github.io/museum/assets/image/photo_2026-03-30_15-28-17.jpg",
+      description: "это устройство, генерирующее ультрафиолетовое (УФ) излучение с помощью ртутно‑кварцевой лампы. Применяется в медицине, дезинфекции, научных исследованиях и некоторых промышленных процессах.",
+      modelGlb: "https://maksim15132.github.io/museum/assets/1337.glb",
+      modelUsdz: "https://maksim15132.github.io/museum/assets/test1.usdz",
+    },
     
   ];
 
