@@ -22,7 +22,7 @@
       name: "Литература",
       price: 11.0,
       image: "https://maksim15132.github.io/museum/assets/1546106602_carti-14.jpg",
-      description: "Здесь вы можите увидеть коллекцию книг, которые я рекомендую для чтения.",
+      description: "Здесь вы можите увидеть коллекцию книг, посвящённых различным историческим событиям.",
       modelGlb: "https://maksim15132.github.io/museum/assets/modelGlb/piperoni/pizza.glb",
       modelUsdz: "https://maksim15132.github.io/museum/assets/modelUsdz/Pepperoni_and_Spinach_Pizza.usdz",
       link: "https://maksim15132.github.io/museum/books/",
