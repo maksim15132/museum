@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="description" content="Веб-Приложение с использованием технологии LiDAR — сайт школьного музея." />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<link rel="shortcut icon" href="assets/icon.png" type="image/png" />
+<title>Электронный музей</title>
+<!-- model-viewer -->
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+<script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
+<link rel="stylesheet" href="style.css" />
+<link rel="apple-touch-icon" href="assets/ios_logo.jpg">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+</head>
+<body class="dark">
+
+  <!-- ===== МОБИЛЬНОЕ / ОБЩЕЕ МЕНЮ ===== -->
+<div id="site-menu" class="site-menu" aria-hidden="true">
+  <div class="menu-panel">
+    <button id="menu-close" class="menu-close">✕</button>
+
+    <nav class="menu-nav">
+      <a href="https://maksim15132.github.io/museum/" class="menu-link">🏠 Главная</a>
+      <a href="https://maksim15132.github.io/museum/ar-models/" class="menu-link">🧊 3D-модели</a>
+      <a href="https://maksim15132.github.io/museum/books/" class="menu-link">📚 Литература</a>
+      <a href="https://maksim15132.github.io/museum/test-models/" class="menu-link">📐 Тестовые модели</a>
+      <a href="https://vk.com/m.neiroset" class="menu-link">👤 Автор</a>
+      <footer>
+        © AR музей. Разработано Шуклиным Максимом
+      </footer>
+    </nav>
+  </div>
+</div>
+
+<header>
+  <div class="brand">
+    <img class="logo-img" src="assets/icon.png" alt="логотип" />
+    <div class="title">
+      <h1>Сайт электронного музея</h1>
+      <p>Музей • AR-просмотр экспонатов</p>
+    </div>
+  </div>
+  <div class="header-controls">
+    <button id="theme-toggle" class="btn btn-ghost theme-toggle" title="Переключить тему">☀️  Светлая</button>
+    <button id="cart-btn" class="btn btn-ghost cart-btn" title="Меню">☰</button>
+  </div>
+</header>
+<main class="container">
+  <section style="margin-bottom:14px;">
+    <h1 style="margin:0;">Экспонаты Курского музея археологии</h1>
+    <p style="color:var(--muted);margin-top:6px;">ДАННЫЙ РАЗДЕЛ ЕЩЕ В РАЗРАБОТКЕ</p>
+  </section>
+  <section id="menu-grid" class="menu-grid"></section>
+  <aside id="cart-preview" style="margin-top:22px;display:none;justify-content:flex-end;">
+    <div style="background:var(--card);padding:12px;border-radius:12px;min-width:220px;box-shadow:0 8px 24px rgba(2,6,23,0.4);">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div style="font-weight:800;">Корзина</div>
+        <div id="cart-items-count" style="color:var(--muted);">0 шт</div>
+      </div>
+      <div id="cart-total" style="margin-top:8px;color:var(--muted);">Итого: <strong>€0.00</strong></div>
+      <div style="margin-top:10px;display:flex;gap:8px;">
+        <button id="order-btn" class="btn btn-primary">Оформить</button>
+        <button id="clear-cart-btn" class="btn btn-ghost">Очистить</button>
+      </div>
+    </div>
+  </aside>
+</main>
+
+<!-- Модальное окно: здесь мы сознательно оставили структуру из новой версии,
+     но изменили поведение так, чтобы при открытии карточки вместо фото
+     сразу загружалось "старое" окно model-viewer (как в вашей старой версии).
+-->
+<div id="modal" class="modal-backdrop" style="display:none;">
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-preview mv-overlay" id="modal-preview">
+      <!-- по умолчанию отображаем изображение; при открытии модалки его заменим на model-viewer -->
+      <img id="modal-img" class="dish-img" src="" alt="" />
+
+      <!-- model-viewer присутствует и будет показан немедленно при открытии карточки -->
+      <model-viewer
+        id="model-viewer"
+        style="width:100%;border-radius:8px;background:#081226;"
+
+        alt=""
+        camera-controls
+        ar
+        ar-modes="webxr scene-viewer quick-look"
+        poster=""
+      ></model-viewer>
+
+      <!-- loader overlay (инжектится скриптом в mv-overlay) -->
+    </div>
+
+    <div class="modal-info">
+      <h3 id="modal-title" class="dish-title"></h3>
+      <div id="modal-price" style="color:var(--muted);margin-top:6px;"></div>
+      <p id="modal-desc" class="dish-desc"></p>
+
+      <div class="modal-actions">
+        <button
+          id="toggle-state-btn"
+          class="btn btn-ghost"
+          style="display:none;"
+        >
+          Переключить состояние
+        </button>
+
+        <a id="ar-link" class="btn btn-ghost" href="#" rel="ar" target="_blank">Открыть в AR (iPhone)</a>
+        <button id="add-to-cart-btn" class="btn btn-primary">Добавить в корзину</button>
+        <button id="close-modal-btn" class="btn btn-ghost">Закрыть</button>
+      </div>
+
+      <div id="model-status" class="note">Статус 3D: idle</div>
+      <div id="model-error" class="note" style="color:#ffb3b3; display:none; margin-top:10px;">Ошибка загрузки модели — проверьте URL и доступность файла (HTTPS).</div>
+      <div class="note">Совет: для iPhone используйте Safari и убедитесь, что сайт доступен по HTTPS; для Android — требуется поддержка WebXR / Scene Viewer.</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+    © AR музей. Разработано Шуклиным Максимом
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
