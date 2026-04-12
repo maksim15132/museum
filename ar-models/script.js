@@ -8,6 +8,15 @@
 
   const MENU = [
     {
+      id: "b1",
+      name: "Баян советский",
+      price: 20.0,
+      image: "",
+      description: "СКОРО",
+      modelGlb: "https://maksim15132.github.io/museum/assets/modelGlb/baian.glb",
+      modelUsdz: "https://maksim15132.github.io/museum/assets/modelUsdz/baian.usdz",
+    },
+    {
       id: "f1",
       name: "Фотоаппарат Смена-8М",
       price: 20.0,
@@ -55,6 +64,24 @@
       description: "это устройство, генерирующее ультрафиолетовое (УФ) излучение с помощью ртутно‑кварцевой лампы. Применяется в медицине, дезинфекции, научных исследованиях и некоторых промышленных процессах.",
       modelGlb: "https://maksim15132.github.io/museum/assets/1337.glb",
       modelUsdz: "https://maksim15132.github.io/museum/assets/test1.usdz",
+    },
+    {
+      id: "n1",
+      name: "Награды ЛЕВИТИНА И. И.",
+      price: 20.0,
+      image: "",
+      description: "Награды командира 1031 стрелкового полка Иосифа Исааковича Левитина, присланные им в музей бандеролью, представляют собой ценный исторический источник, отражающий его личный боевой путь и вклад в Победу. Эти реликвии позволяют сохранить память о подвиге офицера и служат важным элементом патриотического воспитания.",
+      modelGlb: "https://maksim15132.github.io/museum/assets/modelGlb/medals3d.glb",
+      modelUsdz: "https://maksim15132.github.io/museum/assets/modelUsdz/medals3d.usdz",
+    },
+    {
+      id: "b1",
+      name: "Военная фляжка",
+      price: 20.0,
+      image: "",
+      description: "ФЛЯЖКА - овальная или плоская металлическая бутыль с завинчивающейся пробкой. И в жару, и в холод нашим солдатам приходилось без пищи, а бывало, что и без воды, двигаться вперед, преследуя врага и вступая в схватку с ним. И конечно, незаменимым друговеторемя становилас от тартая ляка водой или чав. Фляжку солдат всегда носил при себе на ремне, потому что вода человеку всегда была жизненно необходима, особенно в жару. Чтобы не путать с чужой, обычно каждый выцара какие то поветки, чаще всего фамилию или инициалы.",
+      modelGlb: "https://maksim15132.github.io/museum/assets/modelGlb/flgb.glb",
+      modelUsdz: "https://maksim15132.github.io/museum/assets/modelUsdz/flgb.usdz",
     },
     
   ];
