@@ -10,6 +10,15 @@
   --text-light: #0b1220;
   --muted-light: #607089;
   --accent-light: #ff6b35;
+
+
+  .dark {
+  --btn-bg: rgba(255,255,255,0.08);
+  }
+
+.light {
+  --btn-bg: rgba(0,0,0,0.08);
+  }
 }
 
 /* запрет двойного зума / базовое поведение тача */
@@ -111,7 +120,7 @@ main.container {
 .menu-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 32px;
+  gap: 24px;
   align-items: stretch;
 }
 
@@ -229,21 +238,23 @@ button.btn-ghost {
   padding: 16px;
 }
 .modal-panel {
-  /* ширина остаётся адаптивной */
   width: min(980px, 95%);
   
-  /* высота делаем равной ширине, но не больше 80% экрана */
-  aspect-ratio: 1 / 1;
-  max-height: 70vh;
-  
+  /* ❌ УБИРАЕМ ЭТО */
+  /* aspect-ratio: 1 / 1; */
+
+  max-height: 85vh;
+
   background: var(--card);
   border-radius: 14px;
   padding: 18px;
+
   display: grid;
   grid-template-columns: 360px 1fr;
   gap: 16px;
-  align-items: start;
-  overflow: hidden;
+
+  overflow-y: auto; /* ✅ ВКЛЮЧАЕМ СКРОЛЛ */
+  -webkit-overflow-scrolling: touch;
 }
 
 /* увеличим модалку на больших экранах */
@@ -263,10 +274,8 @@ button.btn-ghost {
 
 /* preview и info внутри модалки */
 .modal-preview {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: stretch;
+  position: relative; /* 🔥 обязательно */
+  display: block;     /* ❌ убираем flex */
   overflow: hidden;
 }
 
@@ -326,7 +335,7 @@ model-viewer { visibility: hidden; }
   .modal-panel {
     grid-template-columns: 1fr;
     width: 92%;
-    height: 90%;
+    height: auto;
     max-width: 600px;
     max-height: 88vh;
     margin: 20px auto;
@@ -382,7 +391,16 @@ model-viewer { visibility: hidden; }
 @keyframes mv-spin { to { transform: rotate(360deg); } }
 .mv-overlay { position: relative; }
 .mv-controls { margin-top: 10px; display:flex; gap:8px; align-items:center; }
-.mv-btn { padding:8px 10px; border-radius:8px; border:1px solid rgba(255,255,255,0.06); background:transparent; cursor:pointer; font-weight:700; }
+.mv-btn {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: var(--btn-bg); /* 👈 теперь адаптивно */
+  color: var(--text);
+  cursor: pointer;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
 .mv-btn.active { background: linear-gradient(90deg,var(--accent),#ffb28b); color:#071022; }
 .mv-retry { padding:6px 8px; border-radius:8px; background: rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.06); cursor:pointer; }
 
@@ -519,7 +537,7 @@ footer{
 /* для портретной ориентации (высота больше ширины) */
 @media (orientation: portrait) {
   main.container {
-    margin-top: 150px;
+    margin-top: 180px;
   }
 }
 
@@ -538,7 +556,6 @@ footer{
   }
 }
 
-
 .big-btn {
   display: inline-block;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -550,4 +567,40 @@ footer{
 .big-btn:hover {
   transform: scale(1.08);
   box-shadow: 0 8px 20px rgba(255, 140, 0, 0.4);
+}
+
+.site-menu {
+  z-index: 2000; /* больше чем у header */
+}
+
+.modal-backdrop {
+  z-index: 2000; /* тоже выше header */
+}
+
+.modal-actions .btn {
+  font-size: 20px;
+  padding: 14px 6px;
+}
+
+#close-modal-btn {
+  background: #ff3236;
+  color: white;
+  border: none;
+}
+
+#close-modal-btn:hover {
+  background: #ff1f1f;
+}
+
+@media (orientation: portrait) {
+  .modal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .modal-actions button,
+  .modal-actions a {
+    width: 100%;
+  }
 }

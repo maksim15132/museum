@@ -8,14 +8,32 @@
 
   const MENU = [
     {
-      id: "page1",
-      name: "В РАЗРАБОТКЕ",
+      id: "b1",
+      name: "Огненные строки памяти В. В. Гречко",
       price: 9.5,
-      /*image: "https://maksim15132.github.io/museum/assets/i.jpg",*/
-      description: "Данный раздел будет доступен уже скоро",
-      modelGlb: "https://maksim15132.github.io/museum/assets/modelGlb/margarita/pizza.glb",
-      modelUsdz: "https://modelviewer.dev/shared-assets/models/Pizza.usdz",
-      link: "https://maksim15132.github.io/museum/",
+      image: "https://maksim15132.github.io/museum/books/ognfoto.jpg",
+      description: "Книга Огненные строки памяти — это документальная повесть о событиях Великой Отечественной войны, основанная на реальных фактах. В центре книги — боевой путь миномётного полка и участие солдат в тяжёлых сражениях, включая штурм Кёнигсберга. Произведение показывает фронтовую жизнь, героизм и реальные эпизоды боёв.",
+      modelGlb: "https://maksim15132.github.io/museum/books/ogn.glb",
+      modelUsdz: "https://maksim15132.github.io/museum/books/ogn.usdz",
+    },
+    
+    {
+      id: "b2",
+      name: "Война, какой она была Пётр Михин",
+      price: 9.5,
+      image: "https://maksim15132.github.io/museum/books/voinafoto.jpg",
+      description: "Это сборник воспоминаний фронтовика Пётра Михина, прошедшего войну от Ржева до Праги. В книге рассказывается о реальной жизни солдат: боях, потерях, страхе, товариществе и послевоенной судьбе. Автор делится личным опытом и показывает войну без прикрас, через судьбу своего поколения.",
+      modelGlb: "https://maksim15132.github.io/museum/books/voina.glb",
+      modelUsdz: "https://maksim15132.github.io/museum/books/voina.usdz",
+    },
+    {
+      id: "b3",
+      name: "Земля под небом Виктор Митрошенов",
+      price: 9.5,
+      image: "https://maksim15132.github.io/museum/books/zeml.jpg",
+      description: "Земля под небом — это документальная биография первого космонавта Юрия Гагарина, в которой подробно показан его путь от трудного детства и учёбы до службы в авиации и подготовки к историческому полёту. Виктор Митрошенков использует архивные материалы, воспоминания современников и личные встречи, раскрывая не только личность Гагарина, но и вклад учёных, врачей и инженеров, стоявших за развитием космической программы.",
+      modelGlb: "https://maksim15132.github.io/museum/books/zeml.glb",
+      modelUsdz: "https://maksim15132.github.io/museum/books/zeml.usdz",
     },
     
     
@@ -37,6 +55,8 @@
   const modelError = document.getElementById("model-error");
   const modalPanel = document.querySelector(".modal-panel");
   const modalPreview = document.querySelector(".modal-preview");
+
+  const loadedModels = {}; // ключ = glbUrl, значение = true, если модель уже загружена
 
   const cartBtn = document.getElementById("cart-btn");
   const cartCount = document.getElementById("cart-count");
@@ -84,8 +104,9 @@
       .mv-btn {
         padding:8px 10px;
         border-radius:8px;
-        border:1px solid rgba(255,255,255,0.06);
-        background:transparent;
+        border:1px solid rgba(211, 17, 17, 0.06);
+        background: var(--btn-bg);
+        color: var(--text);
         cursor:pointer;
         font-weight:700;
       }
@@ -173,19 +194,20 @@
     meta.appendChild(nameDiv); meta.appendChild(priceDiv);
 
     const desc = document.createElement("p");
-    desc.style.color = "var(--muted)"; desc.style.marginTop = "8px"; desc.style.fontSize = "32px";
+    desc.style.color = "var(--muted)"; desc.style.marginTop = "8px"; desc.style.fontSize = "20px";
     desc.textContent = dish.description;
 
     const buttonsDiv = document.createElement("div"); buttonsDiv.className = "card-actions";
-
-    const detailsBtn = document.createElement("button");  // создаём <a> вместо <button>
-    detailsBtn.className = "btn btn-primary big-btn";     // сохраняем те же стили
-    detailsBtn.textContent = "На главную";         // текст ссылки
-    detailsBtn.onclick = () => {
-      window.location.href = dish.link;
     
-};
-
+    const detailsBtn = document.createElement("button");  // создаём <a> вместо <button>
+    detailsBtn.className = "btn btn-primary big-btn";       // сохраняем те же стили
+    detailsBtn.textContent = "Описание экспоната";         // текст ссылки
+    detailsBtn.href = "https://maksim15132.github.io/museum/ar-models/";                // адрес, куда ведёт ссылка
+    detailsBtn.target = "_blank";                   // если хочешь открывать в новой вкладке
+    
+    
+    detailsBtn.onclick = () => openModal(dish);
+    
 
     buttonsDiv.appendChild(detailsBtn);
 
@@ -277,43 +299,63 @@
     }
   }
 
-  // centralised start loader -> attaches listeners and sets src
+
+let currentModelUrl = "";
+let loadSeq = 0;
+
 function startModelLoad(glbUrl) {
   if (!glbUrl) return;
 
-  showLoader(true);
-  modelError.style.display = "none";
-  modelStatus.textContent = "Статус 3D: загрузка...";
+  currentModelUrl = glbUrl;
+  const isAlreadyLoaded = !!loadedModels[glbUrl];
 
+  modelError.style.display = "none";
   modelViewer.style.display = "block";
   modelViewer.style.visibility = "visible";
   modelViewer.style.opacity = "1";
+  modalPanel.classList.add("model-loaded");
 
-  modelViewer.removeAttribute("src");
-
-  const onLoad = () => {
+  // если модель уже была загружена — не показываем "загрузка..."
+  if (isAlreadyLoaded && modelViewer.src === glbUrl) {
     showLoader(false);
     modelStatus.textContent = "Статус 3D: модель загружена ✅";
-    modalImg.style.display = "none";
-    modalPanel.classList.add("model-loaded");
-    modelViewer.removeEventListener("load", onLoad);
-    modelViewer.removeEventListener("error", onError);
+    return;
+  }
+
+  // если модель уже в кеше, но src был сброшен — просто ставим её без мигания лоадера
+  if (isAlreadyLoaded) {
+    showLoader(false);
+    modelStatus.textContent = "Статус 3D: модель загружена ✅";
+    modelViewer.src = glbUrl;
+    return;
+  }
+
+  // первая загрузка
+  const seq = ++loadSeq;
+
+  showLoader(true);
+  modelStatus.textContent = "Статус 3D: загрузка...";
+
+  const onLoad = () => {
+    if (seq !== loadSeq) return;
+    loadedModels[glbUrl] = true;
+    showLoader(false);
+    modelStatus.textContent = "Статус 3D: модель загружена ✅";
+    if (modalImg) modalImg.style.display = "none";
+    modelPanel.classList.add("model-loaded");
   };
 
   const onError = () => {
+    if (seq !== loadSeq) return;
     showLoader(false);
     modelStatus.textContent = "Статус 3D: ошибка загрузки ❌";
     modelError.style.display = "block";
-    modelViewer.removeEventListener("load", onLoad);
-    modelViewer.removeEventListener("error", onError);
   };
 
   modelViewer.addEventListener("load", onLoad, { once: true });
   modelViewer.addEventListener("error", onError, { once: true });
 
-  requestAnimationFrame(() => {
-    modelViewer.src = glbUrl;
-  });
+  modelViewer.src = glbUrl;
 }
 
 
@@ -323,7 +365,7 @@ function startModelLoad(glbUrl) {
     body.classList.add("modal-open");
 
     modalTitle.textContent = dish.name;
-    modalPrice.textContent = `Цена: €${dish.price.toFixed(2)}`;
+    modalPrice.textContent = ``;
     modalDesc.textContent = dish.description;
 
     modelViewer.poster = dish.image;
@@ -333,49 +375,45 @@ function startModelLoad(glbUrl) {
     arLink.style.display = dish.modelUsdz ? "inline-block" : "none";
 
     toggleStateBtn.style.display = dish.hasStates ? "inline-block" : "none";
-    if (dish.hasStates) toggleStateBtn.textContent = "Открыть телефон";
+    if (dish.hasStates) toggleStateBtn.textContent = "🔑 Открыть телефон";
 
     startModelLoad(dish.modelGlb); // 🔥 ЕДИНСТВЕННАЯ загрузка
-}
+  }
 
 
   function closeModal() {
-    modal.style.display = "none";
-    body.classList.remove("modal-open");
+  modal.style.display = "none";
+  body.classList.remove("modal-open");
 
-    // remove listeners and reset viewer
-    try { modelViewer.removeEventListener("load", onModelLoaded); } catch(e) {}
-    try { modelViewer.removeEventListener("error", onModelError); } catch(e) {}
-    try { modelViewer.removeAttribute("src"); } catch(e) {}
-    modelViewer.style.display = "none";
-    modelViewer.style.visibility = "hidden";
-    toggleStateBtn.style.display = "none";
-    modalImg.style.display = "block";
-    modelStatus.textContent = "Статус 3D: idle";
-    modelError.style.display = "none";
-    showLoader(false);
-    modalPanel.classList.remove("model-loaded");
+  // не удаляем src, иначе следующая открытая карточка будет грузиться заново
+  // modelViewer.removeAttribute("src");
 
-    // hide retry UI
-    const retryWrap = document.getElementById("mv-retry-wrap");
-    if (retryWrap) retryWrap.style.display = "none";
+  modelViewer.style.display = "none";
+  modelViewer.style.visibility = "hidden";
 
-    // ensure auto-rotate off visually (but preserve state)
-    const rotateBtn = document.getElementById("mv-rotate-btn");
-    if (rotateBtn) rotateBtn.classList.toggle("active", autoRotate);
+  toggleStateBtn.style.display = "none";
+  if (modalImg) modalImg.style.display = "block";
+
+  modelStatus.textContent = "Статус 3D: idle";
+  modelError.style.display = "none";
+  showLoader(false);
+  modalPanel.classList.remove("model-loaded");
+
+  const retryWrap = document.getElementById("mv-retry-wrap");
+  if (retryWrap) retryWrap.style.display = "none";
+
+  const rotateBtn = document.getElementById("mv-rotate-btn");
+  if (rotateBtn) rotateBtn.classList.toggle("active", autoRotate);
   }
 
   closeModalBtn.onclick = closeModal;
   modal.onclick = (e) => { if (e.target === modal) closeModal(); };
 
   addToCartBtn.onclick = () => {
-    if (currentDish) { addToCart(currentDish, 1); alert("Добавлено в корзину"); }
-  };
-
-
-
-
-
+  if (currentDish && currentDish.modelGlb) {
+    window.open(currentDish.modelGlb, "_blank");
+  }
+};
 
  
 
@@ -420,12 +458,12 @@ function startModelLoad(glbUrl) {
 
   if (phoneState === "closed") {
     phoneState = "open";
-    toggleStateBtn.textContent = "Закрыть телефон";
+    toggleStateBtn.textContent = "🔑 Открыть телефон";
     startModelLoad(currentDish.modelOpenGlb);
     arLink.href = currentDish.modelOpenUsdz;
   } else {
     phoneState = "closed";
-    toggleStateBtn.textContent = "Открыть телефон";
+    toggleStateBtn.textContent = "🔒 Закрыть телефон";
     startModelLoad(currentDish.modelClosedGlb);
     arLink.href = currentDish.modelClosedUsdz;
   }
