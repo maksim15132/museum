@@ -37,21 +37,21 @@
 
 <header>
   <div class="brand">
-    <img class="logo-img" src="assets/icon.png" alt="логотип" />
+    <img class="logo-img" src="https://maksim15132.github.io/museum/assets/icon.png" alt="логотип" />
     <div class="title">
       <h1>Сайт электронного музея</h1>
       <p>Музей • AR-просмотр экспонатов</p>
     </div>
   </div>
   <div class="header-controls">
-    <button id="theme-toggle" class="btn btn-ghost theme-toggle" title="Переключить тему">☀️  Светлая</button>
+    <button id="theme-toggle" class="btn btn-ghost theme-toggle" title="Переключить тему">☀️ Светлая</button>
     <button id="cart-btn" class="btn btn-ghost cart-btn" title="Меню">☰</button>
   </div>
 </header>
 <main class="container">
   <section style="margin-bottom:14px;">
-    <h1 style="margin:0;">Главная</h1>
-    <p style="color:var(--muted);margin-top:6px;">ДАННЫЙ РАЗДЕЛ ЕЩЕ В РАЗРАБОТКЕ</p>
+    <h1 style="margin:0;">Литература</h1>
+    <p style="color:var(--muted);margin-top:6px;">Нажмите на карточку, чтобы открыть подробную информацию о книги:</p>
   </section>
   <section id="menu-grid" class="menu-grid"></section>
   <aside id="cart-preview" style="margin-top:22px;display:none;justify-content:flex-end;">
@@ -77,7 +77,7 @@
   <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <div class="modal-preview mv-overlay" id="modal-preview">
       <!-- по умолчанию отображаем изображение; при открытии модалки его заменим на model-viewer -->
-      <img id="modal-img" class="dish-img" src="" alt="" />
+      
 
       <!-- model-viewer присутствует и будет показан немедленно при открытии карточки -->
       <model-viewer
@@ -109,7 +109,7 @@
         </button>
 
         <a id="ar-link" class="btn btn-ghost" href="#" rel="ar" target="_blank">Открыть в AR (iPhone)</a>
-        <button id="add-to-cart-btn" class="btn btn-primary">Добавить в корзину</button>
+        <button id="add-to-cart-btn" class="btn btn-primary">Скачать модель</button>
         <button id="close-modal-btn" class="btn btn-ghost">Закрыть</button>
       </div>
 
