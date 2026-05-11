@@ -8,23 +8,16 @@
 
   const MENU = [
     {
-      id: "T1",
-      name: "Топор каменный II-III тыс. до н.э",
-      price: 20.0,
-      image: "https://maksim15132.github.io/museum/assets/topork.jpg",
-      description: "Топор каменный шлифованный, с перехватом каменный. Датировка: Эпоха бронзы, II-III тыс. до н.э. Место и дата находки: Курская обл., Льговский р-он, с. Стемоухово-Бобрик. 1995",
-      modelGlb: "https://maksim15132.github.io/museum/assets/modelGlb/topork.glb",
-      modelUsdz: "https://maksim15132.github.io/museum/assets/modelUsdz/topork.usdz",
+      id: "page1",
+      name: "В РАЗРАБОТКЕ",
+      price: 9.5,
+      /*image: "https://maksim15132.github.io/museum/assets/i.jpg",*/
+      description: "ДАННЫЙ РАЗДЕЛ НАХОДИТЬСЯ В РАРАБОТКЕ И СОВСЕМ СКОРО ЗДЕСЬ БУДУТ ПРЕДСТАВЛЕНЫ ЭКСПОНАТЫ В СОТРУДНИЧЕСТВЕ С КУРСКИМ АРХЕОЛОГИЧЕСКИМ МУЗЕЕМ",
+      modelGlb: "https://maksim15132.github.io/museum/assets/modelGlb/margarita/pizza.glb",
+      modelUsdz: "https://modelviewer.dev/shared-assets/models/Pizza.usdz",
+      link: "https://maksim15132.github.io/museum/",
     },
-    {
-      id: "ch1",
-      name: "Ваза круговая трехручная сероглиняная",
-      price: 20.0,
-      image: "https://maksim15132.github.io/museum/assets/vaz.jpg",
-      description: "Ваза круговая трехручная сероглиняная, с геометрическим орнаментом, нанесенным гребенчатым штампом. Фигуры орнамента заполнены концентрическими окружностями. Венчик широкий, плоский, с уклоном наружу. Восстановлена. Дата создания:  III-IVвв. Материал: глина с песком Место, дата и автор находки: Украина страна, Хмельницкая обл., Каменец-Подольский р-он. 1978-1979. Сымонович Э.А. раскопки. Западно-Подольская экспедиция Археологическая коллекция: Коллекция археологических предметов из раскопок Э.А. Сымоновича могильника Думанов Хмельницкой области Каменец-Подольского района (Украина) Археологический памятник:Думанов могильник III - V вв. Месторасположение памятника: Украина страна, Хмельницкая обл., Каменец-Подольский р-он",
-      modelGlb: "https://maksim15132.github.io/museum/assets/vaz.glb",
-      modelUsdz: "https://maksim15132.github.io/museum/assets/vaz.usdz",
-    },
+    
     
   ];
 
@@ -44,8 +37,6 @@
   const modelError = document.getElementById("model-error");
   const modalPanel = document.querySelector(".modal-panel");
   const modalPreview = document.querySelector(".modal-preview");
-
-  const loadedModels = {}; // ключ = glbUrl, значение = true, если модель уже загружена
 
   const cartBtn = document.getElementById("cart-btn");
   const cartCount = document.getElementById("cart-count");
@@ -93,9 +84,8 @@
       .mv-btn {
         padding:8px 10px;
         border-radius:8px;
-        border:1px solid rgba(211, 17, 17, 0.06);
-        background: var(--btn-bg);
-        color: var(--text);
+        border:1px solid rgba(255,255,255,0.06);
+        background:transparent;
         cursor:pointer;
         font-weight:700;
       }
@@ -183,20 +173,19 @@
     meta.appendChild(nameDiv); meta.appendChild(priceDiv);
 
     const desc = document.createElement("p");
-    desc.style.color = "var(--muted)"; desc.style.marginTop = "8px"; desc.style.fontSize = "20px";
+    desc.style.color = "var(--muted)"; desc.style.marginTop = "8px"; desc.style.fontSize = "32px";
     desc.textContent = dish.description;
 
     const buttonsDiv = document.createElement("div"); buttonsDiv.className = "card-actions";
-    
+
     const detailsBtn = document.createElement("button");  // создаём <a> вместо <button>
-    detailsBtn.className = "btn btn-primary big-btn";       // сохраняем те же стили
-    detailsBtn.textContent = "Описание экспоната";         // текст ссылки
-    detailsBtn.href = "https://maksim15132.github.io/museum/ar-models/";                // адрес, куда ведёт ссылка
-    detailsBtn.target = "_blank";                   // если хочешь открывать в новой вкладке
+    detailsBtn.className = "btn btn-primary big-btn";     // сохраняем те же стили
+    detailsBtn.textContent = "На главную";         // текст ссылки
+    detailsBtn.onclick = () => {
+      window.location.href = dish.link;
     
-    
-    detailsBtn.onclick = () => openModal(dish);
-    
+};
+
 
     buttonsDiv.appendChild(detailsBtn);
 
@@ -288,63 +277,43 @@
     }
   }
 
-
-let currentModelUrl = "";
-let loadSeq = 0;
-
+  // centralised start loader -> attaches listeners and sets src
 function startModelLoad(glbUrl) {
   if (!glbUrl) return;
 
-  currentModelUrl = glbUrl;
-  const isAlreadyLoaded = !!loadedModels[glbUrl];
-
+  showLoader(true);
   modelError.style.display = "none";
+  modelStatus.textContent = "Статус 3D: загрузка...";
+
   modelViewer.style.display = "block";
   modelViewer.style.visibility = "visible";
   modelViewer.style.opacity = "1";
-  modalPanel.classList.add("model-loaded");
 
-  // если модель уже была загружена — не показываем "загрузка..."
-  if (isAlreadyLoaded && modelViewer.src === glbUrl) {
-    showLoader(false);
-    modelStatus.textContent = "Статус 3D: модель загружена ✅";
-    return;
-  }
-
-  // если модель уже в кеше, но src был сброшен — просто ставим её без мигания лоадера
-  if (isAlreadyLoaded) {
-    showLoader(false);
-    modelStatus.textContent = "Статус 3D: модель загружена ✅";
-    modelViewer.src = glbUrl;
-    return;
-  }
-
-  // первая загрузка
-  const seq = ++loadSeq;
-
-  showLoader(true);
-  modelStatus.textContent = "Статус 3D: загрузка...";
+  modelViewer.removeAttribute("src");
 
   const onLoad = () => {
-    if (seq !== loadSeq) return;
-    loadedModels[glbUrl] = true;
     showLoader(false);
     modelStatus.textContent = "Статус 3D: модель загружена ✅";
-    if (modalImg) modalImg.style.display = "none";
-    modelPanel.classList.add("model-loaded");
+    modalImg.style.display = "none";
+    modalPanel.classList.add("model-loaded");
+    modelViewer.removeEventListener("load", onLoad);
+    modelViewer.removeEventListener("error", onError);
   };
 
   const onError = () => {
-    if (seq !== loadSeq) return;
     showLoader(false);
     modelStatus.textContent = "Статус 3D: ошибка загрузки ❌";
     modelError.style.display = "block";
+    modelViewer.removeEventListener("load", onLoad);
+    modelViewer.removeEventListener("error", onError);
   };
 
   modelViewer.addEventListener("load", onLoad, { once: true });
   modelViewer.addEventListener("error", onError, { once: true });
 
-  modelViewer.src = glbUrl;
+  requestAnimationFrame(() => {
+    modelViewer.src = glbUrl;
+  });
 }
 
 
@@ -354,7 +323,7 @@ function startModelLoad(glbUrl) {
     body.classList.add("modal-open");
 
     modalTitle.textContent = dish.name;
-    modalPrice.textContent = ``;
+    modalPrice.textContent = `Цена: €${dish.price.toFixed(2)}`;
     modalDesc.textContent = dish.description;
 
     modelViewer.poster = dish.image;
@@ -364,45 +333,49 @@ function startModelLoad(glbUrl) {
     arLink.style.display = dish.modelUsdz ? "inline-block" : "none";
 
     toggleStateBtn.style.display = dish.hasStates ? "inline-block" : "none";
-    if (dish.hasStates) toggleStateBtn.textContent = "🔑 Открыть телефон";
+    if (dish.hasStates) toggleStateBtn.textContent = "Открыть телефон";
 
     startModelLoad(dish.modelGlb); // 🔥 ЕДИНСТВЕННАЯ загрузка
-  }
+}
 
 
   function closeModal() {
-  modal.style.display = "none";
-  body.classList.remove("modal-open");
+    modal.style.display = "none";
+    body.classList.remove("modal-open");
 
-  // не удаляем src, иначе следующая открытая карточка будет грузиться заново
-  // modelViewer.removeAttribute("src");
+    // remove listeners and reset viewer
+    try { modelViewer.removeEventListener("load", onModelLoaded); } catch(e) {}
+    try { modelViewer.removeEventListener("error", onModelError); } catch(e) {}
+    try { modelViewer.removeAttribute("src"); } catch(e) {}
+    modelViewer.style.display = "none";
+    modelViewer.style.visibility = "hidden";
+    toggleStateBtn.style.display = "none";
+    modalImg.style.display = "block";
+    modelStatus.textContent = "Статус 3D: idle";
+    modelError.style.display = "none";
+    showLoader(false);
+    modalPanel.classList.remove("model-loaded");
 
-  modelViewer.style.display = "none";
-  modelViewer.style.visibility = "hidden";
+    // hide retry UI
+    const retryWrap = document.getElementById("mv-retry-wrap");
+    if (retryWrap) retryWrap.style.display = "none";
 
-  toggleStateBtn.style.display = "none";
-  if (modalImg) modalImg.style.display = "block";
-
-  modelStatus.textContent = "Статус 3D: idle";
-  modelError.style.display = "none";
-  showLoader(false);
-  modalPanel.classList.remove("model-loaded");
-
-  const retryWrap = document.getElementById("mv-retry-wrap");
-  if (retryWrap) retryWrap.style.display = "none";
-
-  const rotateBtn = document.getElementById("mv-rotate-btn");
-  if (rotateBtn) rotateBtn.classList.toggle("active", autoRotate);
+    // ensure auto-rotate off visually (but preserve state)
+    const rotateBtn = document.getElementById("mv-rotate-btn");
+    if (rotateBtn) rotateBtn.classList.toggle("active", autoRotate);
   }
 
   closeModalBtn.onclick = closeModal;
   modal.onclick = (e) => { if (e.target === modal) closeModal(); };
 
   addToCartBtn.onclick = () => {
-  if (currentDish && currentDish.modelGlb) {
-    window.open(currentDish.modelGlb, "_blank");
-  }
-};
+    if (currentDish) { addToCart(currentDish, 1); alert("Добавлено в корзину"); }
+  };
+
+
+
+
+
 
  
 
@@ -447,12 +420,12 @@ function startModelLoad(glbUrl) {
 
   if (phoneState === "closed") {
     phoneState = "open";
-    toggleStateBtn.textContent = "🔑 Открыть телефон";
+    toggleStateBtn.textContent = "Закрыть телефон";
     startModelLoad(currentDish.modelOpenGlb);
     arLink.href = currentDish.modelOpenUsdz;
   } else {
     phoneState = "closed";
-    toggleStateBtn.textContent = "🔒 Закрыть телефон";
+    toggleStateBtn.textContent = "Открыть телефон";
     startModelLoad(currentDish.modelClosedGlb);
     arLink.href = currentDish.modelClosedUsdz;
   }
